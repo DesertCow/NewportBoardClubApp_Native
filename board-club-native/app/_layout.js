@@ -33,10 +33,17 @@
 import { Stack } from 'expo-router';
 import { ImageBackground, StyleSheet, Image, headerBackground } from 'react-native';
 
-// const boardClubIcon = { uri: "https://docs.expo.dev/static/images/tutorial/splash.png" };
-{/* <ImageBackground source={image} resizeMode="cover"></ImageBackground> */}
+//* Import Assets
+const boardClubIcon = require('../assets/img/BC_Logo_Clear_1.png');
 
-
+function NBC_Logo() {
+  return (
+    <Image
+      style={{ width: 175, height: 75, marginBottom: 50}}
+      source={boardClubIcon}
+    />
+  );
+}
 
 
 export default function Layout() {
@@ -44,24 +51,18 @@ export default function Layout() {
     <Stack
       // https://reactnavigation.org/docs/headers#sharing-common-options-across-screens
       screenOptions={{
-        title: "Update options",
+        headerTitle: (props) => <NBC_Logo {...props}/>,
         headerStyle: {
-          backgroundColor: '#f4511e',
+          backgroundColor: '#D8D8D8',
+          height: 150,
         },
-        headerTintColor: '#fff',
-        headerBackground: () => (
-          <Image
-            style={StyleSheet.absoluteFill}
-            source={require('../assets/img/BC_Logo_Clear_1.png')}
-          />
-        ),
+        // headerTintColor: '#fff',
         headerTitleStyle: {
           fontWeight: 'bold',
         },
       }}>
-      {/* <ImageBackground source={require('../assets/img/BC_Logo_Clear_1.png')} resizeMode="cover"></ImageBackground> */}
       {/* Optionally configure static options outside the route. */}
-      <Stack.Screen name="home" options={{}} />
+      {/* <Stack.Screen name="home" options={{}} /> */}
     </Stack>
   );
 }

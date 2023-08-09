@@ -37,7 +37,7 @@ function HomeScreen({ navigation }) {
     <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       
       <TouchableOpacity
-        style={styles.button}
+        style={styles.buttonTop}
         onPress={() => navigation.navigate('ClubEvents')}>
         <Text style={styles.buttonText}>Club Events</Text>
       </TouchableOpacity>
@@ -156,6 +156,15 @@ const styles = StyleSheet.create({
     height: 80,
     width: "85%",
     marginTop: 40,
+    justifyContent: 'center',
+  },
+  buttonTop: {
+    alignItems: 'center',
+    backgroundColor: '#474747',
+    color: "#FFFFFF",
+    height: 80,
+    width: "85%",
+    marginTop: 0,
     justifyContent: 'center',
   },
   buttonText: {
