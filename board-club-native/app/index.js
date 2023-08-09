@@ -25,20 +25,24 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, SafeAreaView, View, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, View, Button, TouchableOpacity, ScrollView, Link } from 'react-native';
 
-// import { HomeScreen } from './Home/';
+// import { Home } from './home';
 
 import * as React from 'react';
 
 
 function HomeScreen({ navigation }) {
+
+
+
   return (
     <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       
       <TouchableOpacity
         style={styles.buttonTop}
-        onPress={() => navigation.navigate('ClubEvents')}>
+        onPress={() => navigation.navigate('clubEvents')}>
+        {/* // onPress={() => {Linking.openURL("https://www.google.com/");}}> */}
         <Text style={styles.buttonText}>Club Events</Text>
       </TouchableOpacity>
 
@@ -67,7 +71,7 @@ function HomeScreen({ navigation }) {
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={styles.button}
+        style={styles.buttonBottom}
         onPress={() => navigation.navigate('About')}>
         <Text style={styles.buttonText}>About</Text>
       </TouchableOpacity>
@@ -110,15 +114,11 @@ const Stack = createNativeStackNavigator();
 function MyStack() {
 
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="ClubEvents" component={NotificationsScreen} />
-      <Stack.Screen name="SurfLog" component={ProfileScreen} />
-      <Stack.Screen name="SurfHacks" component={HomeScreen} />
-      <Stack.Screen name="NewportSurfMap" component={HomeScreen} />
-      <Stack.Screen name="Rentals" component={HomeScreen} />
-      <Stack.Screen name="About" component={HomeScreen} />
-    </Stack.Navigator>
+  
+      <ScrollView>
+        <HomeScreen />
+      </ScrollView>
+
   );
 
 }
@@ -164,7 +164,17 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     height: 80,
     width: "85%",
-    marginTop: 0,
+    marginTop: 40,
+    justifyContent: 'center',
+  },
+  buttonBottom: {
+    alignItems: 'center',
+    backgroundColor: '#474747',
+    color: "#FFFFFF",
+    height: 80,
+    width: "85%",
+    marginTop: 40,
+    marginBottom: 80,
     justifyContent: 'center',
   },
   buttonText: {
