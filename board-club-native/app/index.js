@@ -25,31 +25,102 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, View, Button, TouchableOpacity } from 'react-native';
+
+// import { HomeScreen } from './Home/';
+
+import * as React from 'react';
 
 
 function HomeScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('ClubEvents')}>
+        <Text style={styles.buttonText}>Club Events</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('SurfLog')}>
+        <Text style={styles.buttonText}>Surf Log</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('SurfHacks')}>
+        <Text style={styles.buttonText}>Surf Hacks</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('NewportSurfMap')}>
+        <Text style={styles.buttonText}>Newport Surf Map</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Rentals')}>
+        <Text style={styles.buttonText}>Rentals</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('About')}>
+        <Text style={styles.buttonText}>About</Text>
+      </TouchableOpacity>
+
+      {/* <TouchableOpacity
+        title="SurfLog"
+        style={styles.button}
+        onPress={() => navigation.navigate('SurfLog')}
+      </TouchableOpacity> */}
+    </SafeAreaView>
+  );
+}
+
+function ProfileScreen({ navigation }) {
+  return (
+    <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Button
-        title="Go to Profile"
-        onPress={() => navigation.navigate('Profile')}
+        title="Go to Notifications"
+        onPress={() => navigation.navigate('Notifications')}
       />
-    </View>
+      <Button title="Go back" onPress={() => navigation.goBack()} />
+    </SafeAreaView>
+  );
+}
+
+function NotificationsScreen({ navigation }) {
+  return (
+    <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Button
+        title="Go to Settings"
+        onPress={() => navigation.navigate('Settings')}
+      />
+      <Button title="Go back" onPress={() => navigation.goBack()} />
+    </SafeAreaView>
   );
 }
 
 const Stack = createNativeStackNavigator();
 
 function MyStack() {
+
   return (
     <Stack.Navigator>
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="Notifications" component={HomeScreen} />
-      <Stack.Screen name="Profile" component={HomeScreen} />
-      <Stack.Screen name="Settings" component={HomeScreen} />
+      <Stack.Screen name="ClubEvents" component={NotificationsScreen} />
+      <Stack.Screen name="SurfLog" component={ProfileScreen} />
+      <Stack.Screen name="SurfHacks" component={HomeScreen} />
+      <Stack.Screen name="NewportSurfMap" component={HomeScreen} />
+      <Stack.Screen name="Rentals" component={HomeScreen} />
+      <Stack.Screen name="About" component={HomeScreen} />
     </Stack.Navigator>
   );
+
 }
 
 
@@ -74,8 +145,25 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'orange',
+    backgroundColor: 'blue',
+    alignItems: 'start',
+    justifyContent: 'center',
+  },
+  button: {
     alignItems: 'center',
+    backgroundColor: '#474747',
+    color: "#FFFFFF",
+    height: 80,
+    width: "85%",
+    marginTop: 40,
+    justifyContent: 'center',
+  },
+  buttonText: {
+    fontSize: 25,
+    // fontWeight: 700,
+    fontWeight: 'bold',
+    alignItems: 'center',
+    color: "#FFFFFF",
     justifyContent: 'center',
   },
 });

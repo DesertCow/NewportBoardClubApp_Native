@@ -1,5 +1,17 @@
-// import { Stack } from 'expo-router/stack';
+import { Stack } from 'expo-router';
 
-// export default function Layout() {
-//   return <Stack />;
-// }
+export default function Layout() {
+  return (
+    <Stack
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#f4511e',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }}
+    />
+  );
+}
