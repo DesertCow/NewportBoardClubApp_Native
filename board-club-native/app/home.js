@@ -1,47 +1,42 @@
-// import { useState } from 'react';
 
-// import { Text, ScrollView, SafeAreaView } from 'react-native';
-// import { Stack, useRouter } from 'expo-router';
 
-// import { COLORS, icons, images, SIZES } from '../constants'
-// import { Nearbyjobs, Popularjobs, ScreenHeaderBtn, Welcome } from '../components'
 
-// import { Image, TouchableOpacity } from "react-native";
-// import styles from "../components/common/header/screenheader.style";
 
-// const Home = () => {
-//   const router = useRouter();
+
+// export default function HomeScreen({ navigation }) {
 
 //   return (
-//     <SafeAreaView>
-//       <Text>Hello World!!!!!!!!!!!!!!!</Text>
-//     </SafeAreaView>
-//   )
+//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+//       <Button
+//         title="Go to Profile"
+//         onPress={() => navigation.navigate('Profile')}
+//       />
+//     </View>
+//   );
+
 // }
 
-// export default Home;
+// export default HomeScreen;
 
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
+import { Link, Stack } from 'expo-router';
+import { Image, Text, SafeAreaView, TouchableOpacity, StyleSheet } from 'react-native';
 
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, SafeAreaView, View, Button, TouchableOpacity, ScrollView, Link } from 'react-native';
+// function LogoTitle() {
+//   return (
+//     <Image
+//       style={{ width: 50, height: 50 }}
+//       source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
+//     />
+//   );
+// }
 
-// import { Home } from './home';
-
-import * as React from 'react';
-
-
-function HomeScreen({ navigation }) {
-
-
-
+function HomeScreen( { navigation } ) {
   return (
     <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       
       <TouchableOpacity
         style={styles.buttonTop}
-        onPress={() => navigation.navigate('clubEvents')}>
+        onPress={() => navigation.navigate('ClubEvents')}>
         {/* // onPress={() => {Linking.openURL("https://www.google.com/");}}> */}
         <Text style={styles.buttonText}>Club Events</Text>
       </TouchableOpacity>
@@ -82,63 +77,6 @@ function HomeScreen({ navigation }) {
         onPress={() => navigation.navigate('SurfLog')}
       </TouchableOpacity> */}
     </SafeAreaView>
-  );
-}
-
-function ProfileScreen({ navigation }) {
-  return (
-    <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button
-        title="Go to Notifications"
-        onPress={() => navigation.navigate('Notifications')}
-      />
-      <Button title="Go back" onPress={() => navigation.goBack()} />
-    </SafeAreaView>
-  );
-}
-
-function NotificationsScreen({ navigation }) {
-  return (
-    <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button
-        title="Go to Settings"
-        onPress={() => navigation.navigate('Settings')}
-      />
-      <Button title="Go back" onPress={() => navigation.goBack()} />
-    </SafeAreaView>
-  );
-}
-
-const Stack = createNativeStackNavigator();
-
-function MyStack() {
-
-  return (
-  
-      <ScrollView>
-        <HomeScreen />
-      </ScrollView>
-
-  );
-
-}
-
-
-export default function App() {
-
-  return (
-
-    // // <NavigationContainer>
-    //   {/* <View style={styles.container}> */}
-    //     {/* <Text>Open up App.js to start working on your app!!!!!!!!!!</Text> */}
-    //     {/* <StatusBar style="auto" /> */}
-    //   {/* </View> */}
-    // // </NavigationContainer>
-
-    // <NavigationContainer>
-      <MyStack />
-    // </NavigationContainer>
-
   );
 }
 
@@ -186,3 +124,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default HomeScreen;
