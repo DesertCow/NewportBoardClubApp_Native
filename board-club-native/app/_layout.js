@@ -77,7 +77,7 @@ export default function Layout() {
           },
         }}
       >
-        //* App Routes/Pages
+        {/* //* App Routes/Pages */}
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="ClubEvents" component={ClubEvents} />
         <Stack.Screen name="SurfLog" component={SurfLog} />
