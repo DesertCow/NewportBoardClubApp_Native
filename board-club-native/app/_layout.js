@@ -46,6 +46,7 @@ import About from './About';
 
 const Stack = createNativeStackNavigator();
 
+
 //* Import Assets
 const boardClubIcon = require('../assets/img/BC_Logo_Clear_1.png');
 
