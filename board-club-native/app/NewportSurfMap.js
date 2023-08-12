@@ -1,12 +1,21 @@
-import { Text, SafeAreaView, StyleSheet } from 'react-native';
+import { Text, SafeAreaView, StyleSheet, ScrollView } from 'react-native';
+
+//* Components Import
+import Footer from "../components/common/Footer";
 
 function NewportSurfMap( { navigation } ) {
 
   return (
 
-    <SafeAreaView>
-      <Text>Newport Surf Map Page</Text>
+    <SafeAreaView style={{ flex: 1}}>
+      <ScrollView>
+        <Text>Newport Surf Map Page</Text>
+      </ScrollView>
+      
+      <Footer></Footer>
+
     </SafeAreaView>
+
   );
 
 }

@@ -1,13 +1,17 @@
 
 
 import { StyleSheet, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 
 import { FontAwesome } from '@expo/vector-icons'; 
 import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 
-const Footer = () => {
+function Footer() {
+
+  const navigation = useNavigation();
 
   return(
 

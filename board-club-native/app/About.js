@@ -1,4 +1,3 @@
-
 import { Text, SafeAreaView, StyleSheet, Image, ScrollView, View, Linking } from 'react-native';
 
 //* Components Import

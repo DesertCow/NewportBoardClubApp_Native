@@ -1,4 +1,3 @@
-
 import { Text, SafeAreaView, StyleSheet, ScrollView, View } from 'react-native';
 
 //* Components Import
@@ -135,7 +134,7 @@ function Rentals( { navigation } ) {
       </ScrollView>
 
       <Footer></Footer>
-      
+
     </SafeAreaView>
 
   );
