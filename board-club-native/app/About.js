@@ -1,4 +1,8 @@
+
 import { Text, SafeAreaView, StyleSheet, Image, ScrollView, View, Linking } from 'react-native';
+
+//* Components Import
+import Footer from "../components/common/Footer";
 
 //* Import Assets
 const PeterBelden = require('../assets/img/Peter_Belden.jpeg');
@@ -10,7 +14,7 @@ function About( { navigation } ) {
 
   return (
 
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1}}>
       <ScrollView>
         <Image
           style={styles.clubhousePhoto}
@@ -58,6 +62,9 @@ function About( { navigation } ) {
           {/* <Text Linking.openURL(`tel:${"9494387171"}`)> /Text> */}
         </View>
       </ScrollView>
+
+      <Footer></Footer>
+
     </SafeAreaView>
   );
 

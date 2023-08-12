@@ -1,92 +1,77 @@
 
-
-
-
-
-// export default function HomeScreen({ navigation }) {
-
-//   return (
-//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-//       <Button
-//         title="Go to Profile"
-//         onPress={() => navigation.navigate('Profile')}
-//       />
-//     </View>
-//   );
-
-// }
-
-// export default HomeScreen;
-
 import { Link, Stack } from 'expo-router';
-import { Image, Text, SafeAreaView, TouchableOpacity, StyleSheet } from 'react-native';
+import { Image, Text, SafeAreaView, TouchableOpacity, StyleSheet, ScrollView, View } from 'react-native';
 
-// function LogoTitle() {
-//   return (
-//     <Image
-//       style={{ width: 50, height: 50 }}
-//       source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}
-//     />
-//   );
-// }
+import { FontAwesome } from '@expo/vector-icons'; 
+import { FontAwesome5 } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
+//* Components Import
+import Footer from "../components/common/Footer";
+
+
 
 function HomeScreen( { navigation } ) {
+
   return (
-    <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      
-      <TouchableOpacity
-        style={styles.buttonTop}
-        onPress={() => navigation.navigate('ClubEvents')}>
-        {/* // onPress={() => {Linking.openURL("https://www.google.com/");}}> */}
-        <Text style={styles.buttonText}>Club Events</Text>
-      </TouchableOpacity>
+    <SafeAreaView style={{ flex: 1}}>
+      <ScrollView>
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('SurfLog')}>
-        <Text style={styles.buttonText}>Surf Log</Text>
-      </TouchableOpacity>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('SurfHacks')}>
-        <Text style={styles.buttonText}>Surf Hacks</Text>
-      </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.buttonTop}
+            onPress={() => navigation.navigate('ClubEvents')}>
+            {/* // onPress={() => {Linking.openURL("https://www.google.com/");}}> */}
+            <Text style={styles.buttonText}>Club Events</Text>
+          </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('NewportSurfMap')}>
-        <Text style={styles.buttonText}>Newport Surf Map</Text>
-      </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('SurfLog')}>
+            <Text style={styles.buttonText}>Surf Log</Text>
+          </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('Rentals')}>
-        <Text style={styles.buttonText}>Rentals</Text>
-      </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('SurfHacks')}>
+            <Text style={styles.buttonText}>Surf Hacks</Text>
+          </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.buttonBottom}
-        onPress={() => navigation.navigate('About')}>
-        <Text style={styles.buttonText}>About</Text>
-      </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('NewportSurfMap')}>
+            <Text style={styles.buttonText}>Newport Surf Map</Text>
+          </TouchableOpacity>
 
-      {/* <TouchableOpacity
-        title="SurfLog"
-        style={styles.button}
-        onPress={() => navigation.navigate('SurfLog')}
-      </TouchableOpacity> */}
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('Rentals')}>
+            <Text style={styles.buttonText}>Rentals</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.buttonBottom}
+            onPress={() => navigation.navigate('About')}>
+            <Text style={styles.buttonText}>About</Text>
+          </TouchableOpacity>
+
+          {/* <TouchableOpacity
+            title="SurfLog"
+            style={styles.button}
+            onPress={() => navigation.navigate('SurfLog')}
+          </TouchableOpacity> */}
+        </View>
+
+      </ScrollView>
+
+        <Footer></Footer>
+
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'blue',
-    alignItems: 'start',
-    justifyContent: 'center',
-  },
   button: {
     alignItems: 'center',
     backgroundColor: '#474747',
@@ -102,7 +87,7 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     height: 80,
     width: "85%",
-    marginTop: 40,
+    marginTop: 30,
     justifyContent: 'center',
   },
   buttonBottom: {
@@ -112,7 +97,7 @@ const styles = StyleSheet.create({
     height: 80,
     width: "85%",
     marginTop: 40,
-    marginBottom: 80,
+    marginBottom: 20,
     justifyContent: 'center',
   },
   buttonText: {
