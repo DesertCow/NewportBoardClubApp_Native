@@ -3,21 +3,21 @@ import { Text, SafeAreaView, StyleSheet, ScrollView } from 'react-native';
 //* Components Import
 import Footer from "../components/common/Footer";
 
-function SurfHacks( { navigation } ) {
+function UserSettings( { navigation } ) {
 
   return (
 
     <SafeAreaView style={{ flex: 1}}>
+
       <ScrollView>
-        <Text>Surf Hacks Page</Text>
+        <Text>User Settings Page</Text>
       </ScrollView>
       
       <Footer></Footer>
 
     </SafeAreaView>
-    
   );
 
 }
 
-export default SurfHacks;
+export default UserSettings;

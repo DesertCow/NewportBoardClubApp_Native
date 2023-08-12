@@ -1,11 +1,19 @@
-import { Text, SafeAreaView, StyleSheet } from 'react-native';
+import { Text, SafeAreaView, StyleSheet, ScrollView } from 'react-native';
+
+//* Components Import
+import Footer from "../components/common/Footer";
 
 function SurfLog( { navigation } ) {
 
   return (
 
-    <SafeAreaView>
-      <Text>Surf Log Page</Text>
+    <SafeAreaView style={{ flex: 1}}>
+      <ScrollView>
+        <Text>Surf Log Page</Text>
+      </ScrollView>
+      
+      <Footer></Footer>
+
     </SafeAreaView>
   );
 
