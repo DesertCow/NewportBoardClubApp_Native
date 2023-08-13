@@ -1,6 +1,7 @@
 import { Text, SafeAreaView, StyleSheet, ScrollView, View } from 'react-native';
 
 //* Components Import
+import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 
 
@@ -11,6 +12,9 @@ function Rentals( { navigation } ) {
   return (
 
     <SafeAreaView style={{ flex: 1}}>
+
+      <Header  style={{ position: "absolute"}}></Header>
+      
       <ScrollView>
 
         <Text style={styles.rentalPageTitle}>Rental Pricing</Text>

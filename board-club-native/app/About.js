@@ -1,6 +1,7 @@
 import { Text, SafeAreaView, StyleSheet, Image, ScrollView, View, Linking } from 'react-native';
 
 //* Components Import
+import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 
 //* Import Assets
@@ -14,6 +15,9 @@ function About( { navigation } ) {
   return (
 
     <SafeAreaView style={{ flex: 1}}>
+
+      <Header  style={{ position: "absolute"}}></Header>
+      
       <ScrollView>
         <Image
           style={styles.clubhousePhoto}

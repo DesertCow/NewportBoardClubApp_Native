@@ -3,6 +3,7 @@ import { Text, SafeAreaView, StyleSheet, ScrollView, View, Image, TouchableOpaci
 import { useNavigation } from '@react-navigation/native';
 
 //* Components Import
+import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 
 const MemberName = "Clayton Skaggs"
@@ -18,6 +19,9 @@ function SurfLog() {
   return (
 
     <SafeAreaView style={{ flex: 1, backgroundColor: "#E0F2F7"}}>
+
+      <Header  style={{ position: "absolute"}}></Header>
+
       <ScrollView>
         
         <View>
