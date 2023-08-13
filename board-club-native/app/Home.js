@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
     width: "85%",
     marginTop: 40,
     justifyContent: 'center',
+    borderRadius: 20,
   },
   buttonTop: {
     alignItems: 'center',
@@ -89,6 +90,7 @@ const styles = StyleSheet.create({
     width: "85%",
     marginTop: 30,
     justifyContent: 'center',
+    borderRadius: 20,
   },
   buttonBottom: {
     alignItems: 'center',
@@ -99,6 +101,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
     marginBottom: 20,
     justifyContent: 'center',
+    borderRadius: 20,
   },
   buttonText: {
     fontSize: 25,

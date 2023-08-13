@@ -1,36 +1,4 @@
-// import { Stack } from 'expo-router';
 
-// export default function Layout() {
-//   return (
-//     <Stack
-//       screenOptions={{
-//         headerStyle: {
-//           backgroundColor: '#f4511e',
-//         },
-//         headerTintColor: '#fff',
-//         headerTitleStyle: {
-//           fontWeight: 'bold',
-//         },
-//       }}
-//     />
-//   );
-// }
-
-// import { Slot } from 'expo-router';
-
-// export default function Layout() {
-//   return (
-//     <>
-//       {/* <Header /> */}
-//       <Slot />
-//       {/* <Footer /> */}
-//     </>
-//   );
-// }
-
-{/* <ImageBackground source={image} resizeMode="cover" style={styles.image}></ImageBackground> */}
-
-// import { Stack } from 'expo-router';
 import { ImageBackground, StyleSheet, Image, headerBackground, View } from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
@@ -48,6 +16,8 @@ import NewportSurfMap from './NewportSurfMap';
 import Rentals from './Rentals';
 import About from './About';
 import UserSettings from './UserSettings';
+import CreateNewSession from './CreateNewSession'
+import ListOfSessions from './ListOfSessions'
 
 const Stack = createNativeStackNavigator();
 
@@ -92,16 +62,10 @@ export default function App() {
         <Stack.Screen name="Rentals" component={Rentals} />
         <Stack.Screen name="About" component={About} />
         <Stack.Screen name="UserSettings" component={UserSettings} />
+        <Stack.Screen name="CreateNewSession" component={CreateNewSession} />
+        <Stack.Screen name="ListOfSessions" component={ListOfSessions} />
 
-        {/* <View style={styles.footer}> */}
-          {/* <Text>This footer will be pushed to the bottom</Text> */}
-          {/* <FontAwesome5 name="book-open" size={50} color="black" /> */}
-          {/* <MaterialCommunityIcons name="surfing" size={50} color="black" /> */}
-          {/* <FontAwesome name="gear" size={50} color="black" /> */}
-        {/* </View> */}
       </Stack.Navigator>
-
-
     // {/* </NavigationContainer> */}
 
   );
@@ -116,6 +80,6 @@ const styles = StyleSheet.create({
     opacity: 0.7,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    // padding: 40
+    // padding: 40,
   }
 });
