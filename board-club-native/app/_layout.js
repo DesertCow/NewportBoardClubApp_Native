@@ -40,17 +40,17 @@ export default function App() {
 
     // <NavigationContainer>
       <Stack.Navigator
-        // https://reactnavigation.org/docs/headers#sharing-common-options-across-screens
         screenOptions={{
-          headerTitle: (props) => <NBC_Logo {...props}/>,
-          headerStyle: {
-            backgroundColor: '#D8D8D8',
-            height: 150,
-          },
+          // headerTitle: (props) => <NBC_Logo {...props}/>,
+          headerShown: false
+          // headerStyle: {
+          //   backgroundColor: '#D8D8D8',
+          //   height: 150,
+          // },
           // headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
+          // headerTitleStyle: {
+          //   fontWeight: 'bold',
+          // },
         }}
       >
         {/* //* App Routes/Pages */}

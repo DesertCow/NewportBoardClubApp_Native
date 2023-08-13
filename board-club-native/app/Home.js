@@ -7,7 +7,9 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 //* Components Import
+import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
+
 
 
 
@@ -15,6 +17,9 @@ function HomeScreen( { navigation } ) {
 
   return (
     <SafeAreaView style={{ flex: 1}}>
+
+      <Header  style={{ position: "absolute"}}></Header>
+
       <ScrollView>
 
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
