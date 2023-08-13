@@ -27,7 +27,6 @@ function HomeScreen( { navigation } ) {
           <TouchableOpacity
             style={styles.buttonTop}
             onPress={() => navigation.navigate('ClubEvents')}>
-            {/* // onPress={() => {Linking.openURL("https://www.google.com/");}}> */}
             <Text style={styles.buttonText}>Club Events</Text>
           </TouchableOpacity>
 
@@ -70,7 +69,7 @@ function HomeScreen( { navigation } ) {
 
       </ScrollView>
 
-        <Footer></Footer>
+      <Footer></Footer>
 
     </SafeAreaView>
   );
