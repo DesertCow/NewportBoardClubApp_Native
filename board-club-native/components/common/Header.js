@@ -26,8 +26,6 @@ function Header() {
     clubOpenText = "Closed";
   }
 
-  console.log(clubOpenText)
-
   return(
 
     <View style={styles.header}>
@@ -69,21 +67,12 @@ function Header() {
 
 const styles = StyleSheet.create({
   header: {
-    // marginTop: 60,
     flex: 1,
     backgroundColor: "#D8D8D8",
-    // paddingTop: 30,
-    // paddingBottom: 100,
-    // Platform.OS === 'android' ? StatusBar.currentHeight - 20 : undefined,
-    // alignItems: 'left',
-    // height: 150,
-    // maxHeight: 170,
     maxHeight: Platform.OS === 'android' ? 170 : 130,
     minHeight: Platform.OS === 'android' ? 170 : 130,
-    // opacity: 0.9,
     flexDirection: 'row',
     justifyContent: 'center',
-    // paddingBottom: 40
   },
   clubHouseStatusText: {
     fontSize: 18,
@@ -91,7 +80,6 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   clubHouseColoredText: {
-    // color: "green"
     color: ClubOpen === true ? "green" : "red",
   },
   logoCol: {
@@ -104,19 +92,14 @@ const styles = StyleSheet.create({
   wxBoxCol: {
     flex: 1,
     justifyContent: 'space-between',
-    // alignItems: 'center',
     paddingHorizontal: 20,
     flexDirection: 'column',
     marginTop: Platform.OS === 'android' ? 60 : 10,
-    // marginLeft: 10,
   },
   wxBoxRow: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    // marginRight: 50,
-    // marginTop: 5,
-    // paddingLeft: 10,
   },
   wxDataText: {
     fontSize: 16,
@@ -124,10 +107,7 @@ const styles = StyleSheet.create({
   },
   NBCLogo: {
     width: 175, 
-    height: 75, 
-    // marginBottom: 50, 
-    // marginTop: 60,
-    // marginLeft: 10,
+    height: 75,
   }
 });
 
