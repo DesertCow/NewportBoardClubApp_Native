@@ -1,4 +1,4 @@
-import { StyleSheet, View, Image, Text } from 'react-native';
+import { StyleSheet, View, Image, Text, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 //* Icon Import
@@ -65,8 +65,9 @@ const styles = StyleSheet.create({
     // Platform.OS === 'android' ? StatusBar.currentHeight - 20 : undefined,
     // alignItems: 'left',
     // height: 150,
-    maxHeight: 170,
-    minHeight: 170,
+    // maxHeight: 170,
+    maxHeight: Platform.OS === 'android' ? 170 : 130,
+    minHeight: Platform.OS === 'android' ? 170 : 130,
     // opacity: 0.9,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     flex: 1,
     flexDirection: 'column',
-    marginTop: 60,
+    marginTop: Platform.OS === 'android' ? 60 : 20,
     marginLeft: 10,
   },
   wxBoxCol: {
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     paddingHorizontal: 20,
     flexDirection: 'column',
-    marginTop: 60,
+    marginTop: Platform.OS === 'android' ? 60 : 10,
     // marginLeft: 10,
   },
   wxBoxRow: {
