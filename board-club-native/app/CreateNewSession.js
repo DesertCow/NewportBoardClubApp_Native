@@ -10,17 +10,21 @@ import Footer from "../components/common/Footer";
 
 function CreateNewSession( { navigation } ) {
 
-
+  //* User Input Data
   const [dateData, onDateChange] = React.useState();
   const [timeData, onTimeChange] = React.useState();
   const [locationData, onLocationChange] = React.useState();
+  const [modelData, setModel] = React.useState();
 
-  //* Drop Down Pickers
+  //* Drop Down Pickers Data
   const [skyConditions, setSkyConditions] = React.useState();
   const [waveHeight, setWaveHeight] = React.useState();
   const [tideFT, setTideFT] = React.useState();
   const [tideIN, setTideIN] = React.useState();
   const [tideDirection, setTideDirection] = React.useState();
+  const [sessionLengthHours, setSessionLengthHours] = React.useState();
+  const [sessionLengthMinutes, setSessionLengthMinutes] = React.useState();
+  const [shaper, setShaper] = React.useState();
 
   return (
 
@@ -157,21 +161,21 @@ function CreateNewSession( { navigation } ) {
           <Text style={styles.dropdownBoxTitle}>Session Length (H:MM)</Text>
           <Picker
             style={styles.picker}
-            selectedValue={tideFT}
+            selectedValue={sessionLengthHours}
             onValueChange={(itemValue, itemIndex) =>
-              setTideFT(itemValue)
+              setSessionLengthHours(itemValue)
             }>
             <Picker.Item label="0" value="0" />
             <Picker.Item label="1" value="1" />
             <Picker.Item label="2" value="2" />
             <Picker.Item label="3" value="3" />
           </Picker>
-          <Text style={styles.dropdownBoxTitle}>.</Text>
+          <Text style={styles.dropdownBoxTitle}>:</Text>
           <Picker
             style={styles.picker}
-            selectedValue={tideIN}
+            selectedValue={sessionLengthMinutes}
             onValueChange={(itemValue, itemIndex) =>
-              setTideIN(itemValue)
+              setSessionLengthMinutes(itemValue)
             }>
             <Picker.Item label="0" value="0" />
             <Picker.Item label="5" value="5" />
@@ -186,8 +190,36 @@ function CreateNewSession( { navigation } ) {
             <Picker.Item label="50" value="50" />
             <Picker.Item label="55" value="55" />
           </Picker>
-        </View>        
+        </View>
 
+        <View style={styles.dropDownBox}>
+          <Text style={styles.dropdownBoxTitle}>Shaper: </Text>
+          <Picker
+            style={styles.picker}
+            selectedValue={shaper}
+            onValueChange={(itemValue, itemIndex) =>
+              setShaper(itemValue)
+            }>
+            <Picker.Item label="Baltierra Surfboards" value="Baltierra Surfboards" />
+            <Picker.Item label="Solid Surf" value="Solid Surf" />
+            <Picker.Item label="Almond Surfboards" value="Almond Surfboards" />
+            <Picker.Item label="Tanner Surfboards" value="Tanner Surfboards" />
+            <Picker.Item label="Guy Takayama" value="Guy Takayama" />
+            <Picker.Item label="Robert August" value="Robert August" />
+            <Picker.Item label="Dano Surfboards" value="Dano Surfboards" />
+          </Picker>
+        </View>    
+
+        <View style={styles.userInputBox1}>
+          <Text style={styles.userInputTitle}>Model:</Text>
+          <TextInput
+            style={styles.userInput}
+            onChangeText={setModel}
+            value={modelData}
+            defaultValue=''
+            inputMode="text"
+          />
+        </View>
 
       </ScrollView>
       
