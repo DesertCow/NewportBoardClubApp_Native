@@ -8,10 +8,25 @@ import { FontAwesome, FontAwesome5, MaterialCommunityIcons, Feather, Ionicons   
 const boardClubIcon = require('../../assets/img/BC_Logo_Clear_1.png');
 
 
+//? Temp Status set till API call working
+const ClubOpen = false;
+
+
 
 function Header() {
 
   const navigation = useNavigation();
+
+  let clubOpenText = "Closed";
+
+  if(ClubOpen) {
+    clubOpenText = "Open";
+  }
+  else {
+    clubOpenText = "Closed";
+  }
+
+  console.log(clubOpenText)
 
   return(
 
@@ -22,26 +37,23 @@ function Header() {
           style={styles.NBCLogo}
           source={boardClubIcon}
         />
-        <Text style={styles.clubHouseStatusText}> Club House: <Text style={styles.clubHouseColoredText}>Open</Text></Text>
+        <Text style={styles.clubHouseStatusText}> Club House: <Text style={styles.clubHouseColoredText}>{clubOpenText}</Text></Text>
       </View>
 
       <View style={styles.wxBoxCol}>
         <View style={styles.wxBoxRow}>
-          {/* <FontAwesome5 name="book-open" size={25} color="black" onPress={() => navigation.navigate('Home')}/> */}
           <MaterialCommunityIcons name="waves-arrow-up" size={30} color="black" />
           <Feather name="wind" size={30} color="black" />
           <Text style={styles.wxDataText}> 4mph</Text>
         </View>
 
          <View style={styles.wxBoxRow}>
-          {/* <FontAwesome5 name="book-open" size={25} color="black" onPress={() => navigation.navigate('Home')}/> */}
           <Text style={styles.wxDataText}> 3.9 ft</Text>
           <Ionicons name="sunny" size={24} color="black" />
           <Text style={styles.wxDataText}> 73 &deg;F</Text>
         </View>
 
         <View style={styles.wxBoxRow}>
-          {/* <FontAwesome5 name="book-open" size={25} color="black" onPress={() => navigation.navigate('Home')}/> */}
           <MaterialCommunityIcons name="waves-arrow-up" size={30} color="black" />
           <MaterialCommunityIcons name="coolant-temperature" size={30} color="black" />
           <Text style={styles.wxDataText}> 65 &deg;F</Text>
@@ -79,7 +91,8 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   clubHouseColoredText: {
-    color: "green"
+    // color: "green"
+    color: ClubOpen === true ? "green" : "red",
   },
   logoCol: {
     alignSelf: "flex-start",
