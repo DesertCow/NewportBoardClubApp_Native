@@ -31,7 +31,7 @@ function CreateNewSession( { navigation } ) {
   const [surfboardLengthIN, setSurfboardLengthIN] = React.useState();
   const [surfboardVolumeFT, setSurfboardVolumeFT] = React.useState();
   const [surfboardVolumeIN, setSurfboardVolumeIN] = React.useState();
-  const [finsetup, setFinsetup] = React.useState();
+  const [finsetup, setFinSetup] = React.useState();
 
   //* Session Notes
   const [sessionNotes, setSessionNotes] = React.useState();
@@ -83,7 +83,7 @@ function CreateNewSession( { navigation } ) {
         </View>
 
         <View style={styles.dropDownBox}>
-          <Text style={styles.dropdownBoxTitle}>Sky Conditions</Text>
+          <Text style={styles.dropdownBoxTitle}>Sky Conditions:</Text>
           <Picker
             style={styles.picker}
             selectedValue={skyConditions}
@@ -101,7 +101,7 @@ function CreateNewSession( { navigation } ) {
         </View>
 
         <View style={styles.dropDownBox}>
-          <Text style={styles.dropdownBoxTitle}>Wave Height</Text>
+          <Text style={styles.dropdownBoxTitle}>Wave Height:</Text>
           <Picker
             style={styles.picker}
             selectedValue={waveHeight}
@@ -123,91 +123,102 @@ function CreateNewSession( { navigation } ) {
         </View>
 
         <View style={styles.tideDropDownBox}>
-          <Text style={styles.dropdownBoxTitle}>Tide</Text>
-          <Picker
-            style={styles.picker}
-            selectedValue={tideFT}
-            onValueChange={(itemValue, itemIndex) =>
-              setTideFT(itemValue)
-            }>
-            <Picker.Item label="-2" value="-2" />
-            <Picker.Item label="-1" value="-1" />
-            <Picker.Item label="0" value="0" />
-            <Picker.Item label="1" value="1" />
-            <Picker.Item label="2" value="2" />
-            <Picker.Item label="3" value="3" />
-            <Picker.Item label="4" value="4" />
-            <Picker.Item label="5" value="5" />
-            <Picker.Item label="6" value="6" />
-          </Picker>
-          <Text style={styles.dropdownBoxTitle}>.</Text>
-          <Picker
-            style={styles.picker}
-            selectedValue={tideIN}
-            onValueChange={(itemValue, itemIndex) =>
-              setTideIN(itemValue)
-            }>
-            <Picker.Item label="0" value="0" />
-            <Picker.Item label="1" value="1" />
-            <Picker.Item label="2" value="2" />
-            <Picker.Item label="3" value="3" />
-            <Picker.Item label="4" value="4" />
-            <Picker.Item label="5" value="5" />
-            <Picker.Item label="6" value="6" />
-            <Picker.Item label="7" value="7" />
-            <Picker.Item label="8" value="8" />
-            <Picker.Item label="9" value="9" />
-          </Picker>
-          <Text style={styles.dropdownBoxTitle}>Tide Direction</Text>
-          <Picker
-            style={styles.picker}
-            selectedValue={tideDirection}
-            onValueChange={(itemValue, itemIndex) =>
-              setTideDirection(itemValue)
-            }>
-            <Picker.Item label="Rising" value="Rising" />
-            <Picker.Item label="Falling" value="Falling" />
-          </Picker>
+
+          <View style={styles.sideBySide}>
+            <Text style={styles.dropdownBoxTitle}>Tide:</Text>
+            <Picker
+              style={styles.picker}
+              selectedValue={tideFT}
+              onValueChange={(itemValue, itemIndex) =>
+                setTideFT(itemValue)
+              }>
+              <Picker.Item label="-2" value="-2" />
+              <Picker.Item label="-1" value="-1" />
+              <Picker.Item label="0" value="0" />
+              <Picker.Item label="1" value="1" />
+              <Picker.Item label="2" value="2" />
+              <Picker.Item label="3" value="3" />
+              <Picker.Item label="4" value="4" />
+              <Picker.Item label="5" value="5" />
+              <Picker.Item label="6" value="6" />
+            </Picker>
+            <Text style={styles.dropdownBoxTitle}>.</Text>
+            <Picker
+              style={styles.picker}
+              selectedValue={tideIN}
+              onValueChange={(itemValue, itemIndex) =>
+                setTideIN(itemValue)
+              }>
+              <Picker.Item label="0" value="0" />
+              <Picker.Item label="1" value="1" />
+              <Picker.Item label="2" value="2" />
+              <Picker.Item label="3" value="3" />
+              <Picker.Item label="4" value="4" />
+              <Picker.Item label="5" value="5" />
+              <Picker.Item label="6" value="6" />
+              <Picker.Item label="7" value="7" />
+              <Picker.Item label="8" value="8" />
+              <Picker.Item label="9" value="9" />
+            </Picker>
+          </View>
+
+          <View style={styles.sideBySide}>
+            <Text style={styles.dropdownBoxTitle}>Tide Direction:</Text>
+            <Picker
+              style={styles.picker}
+              selectedValue={tideDirection}
+              onValueChange={(itemValue, itemIndex) =>
+                setTideDirection(itemValue)
+              }>
+              <Picker.Item label="Rising" value="Rising" />
+              <Picker.Item label="Falling" value="Falling" />
+            </Picker>
+          </View>
+
         </View>
 
         <View style={styles.tideDropDownBox}>
-          <Text style={styles.dropdownBoxTitle}>Session Length (H:MM)</Text>
-          <Picker
-            style={styles.picker}
-            selectedValue={sessionLengthHours}
-            onValueChange={(itemValue, itemIndex) =>
-              setSessionLengthHours(itemValue)
-            }>
-            <Picker.Item label="0" value="0" />
-            <Picker.Item label="1" value="1" />
-            <Picker.Item label="2" value="2" />
-            <Picker.Item label="3" value="3" />
-          </Picker>
-          <Text style={styles.dropdownBoxTitle}>:</Text>
-          <Picker
-            style={styles.picker}
-            selectedValue={sessionLengthMinutes}
-            onValueChange={(itemValue, itemIndex) =>
-              setSessionLengthMinutes(itemValue)
-            }>
-            <Picker.Item label="0" value="0" />
-            <Picker.Item label="5" value="5" />
-            <Picker.Item label="10" value="10" />
-            <Picker.Item label="15" value="15" />
-            <Picker.Item label="20" value="20" />
-            <Picker.Item label="25" value="25" />
-            <Picker.Item label="30" value="30" />
-            <Picker.Item label="35" value="35" />
-            <Picker.Item label="40" value="40" />
-            <Picker.Item label="45" value="45" />
-            <Picker.Item label="50" value="50" />
-            <Picker.Item label="55" value="55" />
-          </Picker>
+          <View style={styles.sideBySide}>
+
+          
+            <Text style={styles.dropdownBoxTitle}>Session Length (H:MM)</Text>
+            <Picker
+              style={styles.picker}
+              selectedValue={sessionLengthHours}
+              onValueChange={(itemValue, itemIndex) =>
+                setSessionLengthHours(itemValue)
+              }>
+              <Picker.Item label="0" value="0" />
+              <Picker.Item label="1" value="1" />
+              <Picker.Item label="2" value="2" />
+              <Picker.Item label="3" value="3" />
+            </Picker>
+            <Text style={styles.dropdownBoxTitle}>:</Text>
+            <Picker
+              style={styles.picker}
+              selectedValue={sessionLengthMinutes}
+              onValueChange={(itemValue, itemIndex) =>
+                setSessionLengthMinutes(itemValue)
+              }>
+              <Picker.Item label="0" value="0" />
+              <Picker.Item label="5" value="5" />
+              <Picker.Item label="10" value="10" />
+              <Picker.Item label="15" value="15" />
+              <Picker.Item label="20" value="20" />
+              <Picker.Item label="25" value="25" />
+              <Picker.Item label="30" value="30" />
+              <Picker.Item label="35" value="35" />
+              <Picker.Item label="40" value="40" />
+              <Picker.Item label="45" value="45" />
+              <Picker.Item label="50" value="50" />
+              <Picker.Item label="55" value="55" />
+            </Picker>
+          </View>
         </View>
 
         <View style={styles.surfBoardInfo}>
           
-          <View>
+          <View style={styles.sideBySide}>
             <Text style={styles.dropdownBoxTitle}>Shaper: </Text>
             <Picker
               style={styles.picker}
@@ -225,7 +236,7 @@ function CreateNewSession( { navigation } ) {
             </Picker>
           </View>
 
-          <View>
+          <View style={styles.sideBySide}>
             <Text style={styles.userInputTitle}>Model:</Text>
             <TextInput
               style={styles.userInput}
@@ -236,7 +247,7 @@ function CreateNewSession( { navigation } ) {
             />
           </View>
 
-          <View>
+          <View style={styles.sideBySide}>
             <Text style={styles.dropdownBoxTitle}>Length: </Text>
             <Picker
               style={styles.picker}
@@ -276,7 +287,7 @@ function CreateNewSession( { navigation } ) {
             <Text style={styles.dropdownBoxTitle}>IN</Text>
           </View>
 
-          <View>
+          <View style={styles.sideBySide}>
             <Text style={styles.dropdownBoxTitle}>Volume: </Text>
             <Picker
               style={styles.picker}
@@ -284,27 +295,27 @@ function CreateNewSession( { navigation } ) {
               onValueChange={(itemValue, itemIndex) =>
                 setSurfboardVolumeFT(itemValue)
               }>
-              <Picker.Item label="20" />
-              <Picker.Item label="21" />
-              <Picker.Item label="22" />
-              <Picker.Item label="23" />
-              <Picker.Item label="24" />
-              <Picker.Item label="25" />
-              <Picker.Item label="26" />
-              <Picker.Item label="27" />
-              <Picker.Item label="28" />
-              <Picker.Item label="29" />
-              <Picker.Item label="30" />
-              <Picker.Item label="31" />
-              <Picker.Item label="32" />
-              <Picker.Item label="33" />
-              <Picker.Item label="34" />
-              <Picker.Item label="35" />
-              <Picker.Item label="36" />
-              <Picker.Item label="37" />
-              <Picker.Item label="38" />
-              <Picker.Item label="39" />
-              <Picker.Item label="40" />
+              <Picker.Item label="20" value="20" />
+              <Picker.Item label="21" value="21" />
+              <Picker.Item label="22" value="22" />
+              <Picker.Item label="23" value="23" />
+              <Picker.Item label="24" value="24" />
+              <Picker.Item label="25" value="25" />
+              <Picker.Item label="26" value="26" />
+              <Picker.Item label="27" value="27" />
+              <Picker.Item label="28" value="28" />
+              <Picker.Item label="29" value="29" />
+              <Picker.Item label="30" value="30" />
+              <Picker.Item label="31" value="31" />
+              <Picker.Item label="32" value="32" />
+              <Picker.Item label="33" value="33" />
+              <Picker.Item label="34" value="34" />
+              <Picker.Item label="35" value="35" />
+              <Picker.Item label="36" value="36" />
+              <Picker.Item label="37" value="37" />
+              <Picker.Item label="38" value="38" />
+              <Picker.Item label="39" value="39" />
+              <Picker.Item label="40" value="40" />
             </Picker>
             <Text style={styles.dropdownBoxTitle}>.</Text>
             <Picker
@@ -313,33 +324,33 @@ function CreateNewSession( { navigation } ) {
               onValueChange={(itemValue, itemIndex) =>
                 setSurfboardVolumeIN(itemValue)
               }>
-              <Picker.Item label="0" />
-              <Picker.Item label="1" />
-              <Picker.Item label="2" />
-              <Picker.Item label="3" />
-              <Picker.Item label="4" />
-              <Picker.Item label="5" />
-              <Picker.Item label="6" />
-              <Picker.Item label="7" />
-              <Picker.Item label="8" />
-              <Picker.Item label="9" />
+              <Picker.Item label="0" value="0"/>
+              <Picker.Item label="1" value="1"/>
+              <Picker.Item label="2" value="2"/>
+              <Picker.Item label="3" value="3"/>
+              <Picker.Item label="4" value="4"/>
+              <Picker.Item label="5" value="5"/>
+              <Picker.Item label="6" value="6"/>
+              <Picker.Item label="7" value="7"/>
+              <Picker.Item label="8" value="8"/>
+              <Picker.Item label="9" value="9"/>
             </Picker>
             <Text style={styles.dropdownBoxTitle}>L</Text>
           </View>
 
-          <View>
-            <Text style={styles.dropdownBoxTitle}>Fin Setup</Text>
+          <View style={styles.sideBySide}>
+            <Text style={styles.dropdownBoxTitle}>Fin Setup:</Text>
             <Picker
               style={styles.picker}
               selectedValue={finsetup}
               onValueChange={(itemValue, itemIndex) =>
-                setFinsetup(itemValue)
+                setFinSetup(itemValue)
               }>
-              <Picker.Item label="Single" />
-              <Picker.Item label="Twin" />
-              <Picker.Item label="Thruster" />
-              <Picker.Item label="2+1" />
-              <Picker.Item label="Quad" />
+              <Picker.Item label="Single" value="Single"/>
+              <Picker.Item label="Twin" value="Twin"/>
+              <Picker.Item label="Thruster" value="Thruster"/>
+              <Picker.Item label="2+1" value="2+1"/>
+              <Picker.Item label="Quad" value="Quad"/>
             </Picker>            
           </View>
 
@@ -366,12 +377,12 @@ function CreateNewSession( { navigation } ) {
             onValueChange={(itemValue, itemIndex) =>
               setSessionRating(itemValue)
             }>
-            <Picker.Item label="0" />
-            <Picker.Item label="1" />
-            <Picker.Item label="2" />
-            <Picker.Item label="3" />
-            <Picker.Item label="4" />
-            <Picker.Item label="5" />
+            <Picker.Item label="0" value="0"/>
+            <Picker.Item label="1" value="1"/>
+            <Picker.Item label="2" value="2"/>
+            <Picker.Item label="3" value="3"/>
+            <Picker.Item label="4" value="4"/>
+            <Picker.Item label="5" value="5"/>
           </Picker>            
         </View>
 
@@ -433,7 +444,7 @@ const styles = StyleSheet.create({
   },
   dropdownBoxTitle: {
     fontWeight: 'bold',
-    fontSize: 25,
+    fontSize: 20,
     paddingRight: 10,
     textAlign: "center",
     paddingTop: Platform.OS === 'android' ? 20 : 0,
@@ -443,15 +454,16 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     width: "100%", 
     maxHeight: 100,
-    // flexDirection: 'row',
-    // flex: 1,
+    flexDirection: 'row',
+    flex: 1,
     textAlign: "center",
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
   },
   picker: {
-    marginBottom: Platform.OS === 'android' ? 20 : 10,
+    marginTop: Platform.OS === 'android' ? 20 : 5,
+    // marginBottom: Platform.OS === 'android' ? 20 : 10,
     width:150,
     // borderStyle: "solid",
     // borderWidth: 5,
@@ -460,9 +472,10 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderWidth: 5,
     width: "100%",
-    maxHeight: 350,
-    // flexDirection: 'row',
-    // flex: 1,
+    maxHeight: 100,
+    minHeight: 100,
+    flexDirection: 'column',
+    flex: 1,
     textAlign: "center",
     justifyContent: 'center',
     alignItems: 'center',
@@ -534,6 +547,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
+  sideBySide: {
+    width: "100%", 
+    // maxHeight: 75,
+    flexDirection: 'row',
+    flex: 1,
+    textAlign: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
 });
 export default CreateNewSession;
