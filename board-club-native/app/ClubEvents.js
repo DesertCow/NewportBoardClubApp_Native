@@ -1,5 +1,6 @@
-import { Text, SafeAreaView, StyleSheet, ScrollView, View, Image } from 'react-native';
+import { Text, SafeAreaView, StyleSheet, ScrollView, View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 import SwitchSelector from "react-native-switch-selector";
 
@@ -11,7 +12,9 @@ import { getCurrentEvents_Q, getHistoryEvents_Q } from '../utils/queries';
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 
-function ClubEvents( { navigation } ) {
+function ClubEvents() {
+
+  const navigation = useNavigation();
 
   const [switchStatus, setSwitchStatus] = React.useState(true);
   const [bgColor, setBgColor] = React.useState("#E4F1FF");
@@ -52,6 +55,11 @@ function ClubEvents( { navigation } ) {
 
     // navigate("/club_events/event/" + reqEventID);
     console.log("Event (" + reqEventID + ") Clicked!")
+
+    navigation.navigate('EventDetail', {
+      EventID: reqEventID
+    });
+    // navigation.navigate('EventDetail');
     // console.log(event)
   };
 
@@ -82,7 +90,9 @@ function ClubEvents( { navigation } ) {
 
     
 
-    <View style={styles.eventsDisplayBox} key={eventData._id} onClick={(event) => displayEventDetails(event, eventData._id)}>
+    // <View style={styles.eventsDisplayBox} key={eventData._id} onClick={(event) => displayEventDetails(event, eventData._id)}>
+    // <View style={styles.eventsDisplayBox} key={eventData._id} onClick={(event) => console.log("Event (" + eventData._id + ") Clicked!")}>
+    <View style={styles.eventsDisplayBox} key={eventData._id} onClick={(event) => console.log("Event Clicked!")}>
       <Text style={styles.eventTitleText}>{eventData.eventName}</Text>
 
       <Image
@@ -91,6 +101,13 @@ function ClubEvents( { navigation } ) {
       />
 
       <Text style={styles.eventDateText}>{eventData.eventDate}</Text>
+
+      <TouchableOpacity
+        style={styles.eventButton}
+        // backgroundColor={switchColor}
+        onPress={(event) => displayEventDetails(event, eventData._id)}>
+        <Text style={styles.buttonText}>Event Link</Text>
+      </TouchableOpacity>
 
     </View>
   )}
@@ -239,6 +256,22 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
   },
+  eventButton: {
+    alignItems: 'center',
+    backgroundColor: "#51A7FF",
+    color: "#FFFFFF",
+    height: 50,
+    width: "85%",
+    marginLeft: "8%",
+    marginVertical: 10,
+    justifyContent: 'center',
+    borderRadius: 20,
+    
+  },
+  buttonText: {
+    fontSize: 20,
+    fontWeight: "bold",
+  }
 })
 
 const colors = StyleSheet.create({

@@ -13,14 +13,15 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 import HomeScreen from './Home';
 import ClubEvents from './ClubEvents';
+import EventDetail from './EventDetail';
 import SurfLog from './SurfLog';
 import SurfHacks from './SurfHacks';
 import NewportSurfMap from './NewportSurfMap';
 import Rentals from './Rentals';
 import About from './About';
 import UserSettings from './UserSettings';
-import CreateNewSession from './CreateNewSession'
-import ListOfSessions from './ListOfSessions'
+import CreateNewSession from './CreateNewSession';
+import ListOfSessions from './ListOfSessions';
 
 const Stack = createNativeStackNavigator();
 
@@ -66,6 +67,7 @@ export default function App() {
         {/* //* App Routes/Pages */}
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="ClubEvents" component={ClubEvents} />
+        <Stack.Screen name="EventDetail" component={EventDetail} />
         <Stack.Screen name="SurfLog" component={SurfLog} />
         <Stack.Screen name="SurfHacks" component={SurfHacks} />
         <Stack.Screen name="NewportSurfMap" component={NewportSurfMap} />
