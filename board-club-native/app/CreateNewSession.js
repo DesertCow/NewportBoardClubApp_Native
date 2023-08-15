@@ -85,7 +85,7 @@ function CreateNewSession( { navigation } ) {
         <View style={styles.dropDownBox}>
           <Text style={styles.dropdownBoxTitle}>Sky Conditions:</Text>
           <Picker
-            style={styles.picker}
+            style={styles.pickerWide}
             selectedValue={skyConditions}
             onValueChange={(itemValue, itemIndex) =>
               setSkyConditions(itemValue)
@@ -103,7 +103,7 @@ function CreateNewSession( { navigation } ) {
         <View style={styles.dropDownBox}>
           <Text style={styles.dropdownBoxTitle}>Wave Height:</Text>
           <Picker
-            style={styles.picker}
+            style={styles.pickerWide}
             selectedValue={waveHeight}
             onValueChange={(itemValue, itemIndex) =>
               setWaveHeight(itemValue)
@@ -165,7 +165,7 @@ function CreateNewSession( { navigation } ) {
           <View style={styles.sideBySide}>
             <Text style={styles.dropdownBoxTitle}>Tide Direction:</Text>
             <Picker
-              style={styles.picker}
+              style={styles.pickerWide}
               selectedValue={tideDirection}
               onValueChange={(itemValue, itemIndex) =>
                 setTideDirection(itemValue)
@@ -213,7 +213,7 @@ function CreateNewSession( { navigation } ) {
               <Picker.Item label="50" value="50" />
               <Picker.Item label="55" value="55" />
             </Picker>
-          </View>
+            </View>
         </View>
 
         <View style={styles.surfBoardInfo}>
@@ -221,7 +221,7 @@ function CreateNewSession( { navigation } ) {
           <View style={styles.sideBySide}>
             <Text style={styles.dropdownBoxTitle}>Shaper: </Text>
             <Picker
-              style={styles.picker}
+              style={styles.pickerWide}
               selectedValue={shaper}
               onValueChange={(itemValue, itemIndex) =>
                 setShaper(itemValue)
@@ -237,7 +237,7 @@ function CreateNewSession( { navigation } ) {
           </View>
 
           <View style={styles.sideBySide}>
-            <Text style={styles.userInputTitle}>Model:</Text>
+            <Text style={styles.dropdownBoxTitle}>Model:</Text>
             <TextInput
               style={styles.userInput}
               onChangeText={setModel}
@@ -341,7 +341,7 @@ function CreateNewSession( { navigation } ) {
           <View style={styles.sideBySide}>
             <Text style={styles.dropdownBoxTitle}>Fin Setup:</Text>
             <Picker
-              style={styles.picker}
+              style={styles.pickerWide}
               selectedValue={finsetup}
               onValueChange={(itemValue, itemIndex) =>
                 setFinSetup(itemValue)
@@ -462,9 +462,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   picker: {
+    marginTop: Platform.OS === 'android' ? 20 : 20,
+    // marginBottom: Platform.OS === 'android' ? 20 : 10,
+    // with
+    minWidth: Platform.OS === 'android' ? 100 : 50,
+    // borderStyle: "solid",
+    // borderWidth: 5,
+  },
+  pickerWide: {
     marginTop: Platform.OS === 'android' ? 20 : 5,
     // marginBottom: Platform.OS === 'android' ? 20 : 10,
-    width:150,
+    // with
+    minWidth: Platform.OS === 'android' ? 250 : 50,
     // borderStyle: "solid",
     // borderWidth: 5,
   },
@@ -472,14 +481,15 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderWidth: 5,
     width: "100%",
-    maxHeight: 100,
-    minHeight: 100,
+    // maxHeight: 100,
+    // minHeight: 100,
     flexDirection: 'column',
     flex: 1,
     textAlign: "center",
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
+    paddingBottom: 10,
   },
   surfBoardInfo: {
     borderStyle: "solid",
