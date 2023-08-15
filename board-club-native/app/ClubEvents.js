@@ -106,7 +106,7 @@ function ClubEvents() {
         style={styles.eventButton}
         // backgroundColor={switchColor}
         onPress={(event) => displayEventDetails(event, eventData._id)}>
-        <Text style={styles.buttonText}>Event Link</Text>
+        <Text style={styles.buttonText}>Event Details</Text>
       </TouchableOpacity>
 
     </View>
@@ -258,7 +258,8 @@ const styles = StyleSheet.create({
   },
   eventButton: {
     alignItems: 'center',
-    backgroundColor: "#51A7FF",
+    // backgroundColor: "#51A7FF",
+    backgroundColor: "#6f6f6f75",
     color: "#FFFFFF",
     height: 50,
     width: "85%",

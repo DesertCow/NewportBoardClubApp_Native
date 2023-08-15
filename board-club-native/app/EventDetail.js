@@ -22,7 +22,7 @@ function EventDetail(nav) {
 
   if(!loading){
 
-    console.log(data.getEvent)
+    // console.log(data.getEvent)
 
     const eventData = data.getEvent
 
@@ -42,6 +42,7 @@ function EventDetail(nav) {
             source={{uri: eventData.eventPhotoURL}}
             />
 
+          <Text style={styles.eventDateText}>{eventData.eventSlogan}</Text>
           <Text style={styles.eventDateText}>{eventData.eventDate}</Text>
 
         </ScrollView>
