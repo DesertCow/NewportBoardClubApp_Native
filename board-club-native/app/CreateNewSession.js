@@ -90,7 +90,7 @@ function CreateNewSession( { navigation } ) {
             onValueChange={(itemValue, itemIndex) =>
               setSkyConditions(itemValue)
             }>
-            <Picker.Item label="???" value="???" />
+            {/* <Picker.Item label="???" value="???" /> */}
             <Picker.Item label="Sunny" value="Sunny" />
             <Picker.Item label="Partly Sunny" value="Partly Sunny" />
             <Picker.Item label="Cloudy" value="Cloudy" />
@@ -108,7 +108,7 @@ function CreateNewSession( { navigation } ) {
             onValueChange={(itemValue, itemIndex) =>
               setWaveHeight(itemValue)
             }>
-            <Picker.Item label="???" value="???" />
+            {/* <Picker.Item label="???" value="???" /> */}
             <Picker.Item label="0-1" value="0-1" />
             <Picker.Item label="1-2" value="1-2" />
             <Picker.Item label="2-3" value="2-3" />
@@ -357,7 +357,7 @@ function CreateNewSession( { navigation } ) {
         </View>
           
         <View style={styles.sessionNotes}>
-          <Text style={styles.dropdownBoxTitle}>Session Notes</Text>
+          <Text style={styles.dropdownBoxTitle}>Session Notes:</Text>
            <TextInput
             style={styles.sessionNotesInput}
             onChangeText={setSessionNotes}
@@ -425,6 +425,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
+    paddingVertical: 10,
   },
   userInputTitle: {
     fontWeight: 'bold',
@@ -440,7 +441,7 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderWidth: 5,
     padding: 5,
-    marginVertical: 5,
+    // marginVertical: Platform.OS === 'android' ? 10 : 5,
   },
   dropdownBoxTitle: {
     fontWeight: 'bold',
@@ -462,7 +463,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   picker: {
-    marginTop: Platform.OS === 'android' ? 20 : 20,
+    marginTop: Platform.OS === 'android' ? 20 : 5,
     // marginBottom: Platform.OS === 'android' ? 20 : 10,
     // with
     minWidth: Platform.OS === 'android' ? 100 : 50,
@@ -507,8 +508,8 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderWidth: 5,
     width: "100%", 
-    height: 250,
-    flexDirection: 'row',
+    minHeight: 250,
+    flexDirection: 'column',
     flex: 1,
     textAlign: "center",
     justifyContent: 'center',
@@ -516,7 +517,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   sessionNotesInput: {
-    height: 300,
+    minHeight: 200,
+    minWidth: "95%",
+    borderStyle: "solid",
+    borderWidth: 5,
+    marginBottom: 10,
     // numberOfLines: 5,
   },
   saveResetButtonsBox: {
@@ -524,7 +529,7 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
     // justifyContent: 'center'
     flexDirection: 'row',
-    height: 100,
+    minHeight: 100,
     paddingHorizontal: 20,
     justifyContent: 'space-evenly',
     borderStyle: "solid",
@@ -567,6 +572,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
+    paddingVertical: Platform.OS === 'android' ? 0 : 5,
   },
 });
 export default CreateNewSession;
