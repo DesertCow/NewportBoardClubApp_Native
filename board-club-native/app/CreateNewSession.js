@@ -413,6 +413,7 @@ function CreateNewSession( { navigation } ) {
   );
 
 }
+
 const styles = StyleSheet.create({
   userInputBox1: {
     borderStyle: "solid",
