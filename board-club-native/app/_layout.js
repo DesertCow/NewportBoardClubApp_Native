@@ -39,15 +39,16 @@ function NBC_Logo() {
 
 // Initialize Apollo Client
 const client = new ApolloClient({
-  uri: 'localhost:4000/graphql',
+  uri: 'http://192.168.25.22:4001',
   cache: new InMemoryCache()
 });
 
 
 export default function App() {
   return (
-
-    // <NavigationContainer>
+    
+  <ApolloProvider client={client}>
+    {/* // <NavigationContainer> */}
       <Stack.Navigator
         screenOptions={{
           // headerTitle: (props) => <NBC_Logo {...props}/>,
@@ -75,7 +76,8 @@ export default function App() {
         <Stack.Screen name="ListOfSessions" component={ListOfSessions} />
 
       </Stack.Navigator>
-    // {/* </NavigationContainer> */}
+    {/* // </NavigationContainer> */}
+    </ApolloProvider>
 
   );
 }

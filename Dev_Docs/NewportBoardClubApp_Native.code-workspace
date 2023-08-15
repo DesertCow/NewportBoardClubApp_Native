@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": ".."
+		},
+		{
+			"path": "../../NewportBoardClubApp_Server/server"
 		}
 	]
 }
