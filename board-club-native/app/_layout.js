@@ -6,7 +6,10 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import { FontAwesome } from '@expo/vector-icons'; 
 import { FontAwesome5 } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
+//* GraphQL
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 import HomeScreen from './Home';
 import ClubEvents from './ClubEvents';
@@ -33,6 +36,12 @@ function NBC_Logo() {
     />
   );
 }
+
+// Initialize Apollo Client
+const client = new ApolloClient({
+  uri: 'localhost:4000/graphql',
+  cache: new InMemoryCache()
+});
 
 
 export default function App() {
