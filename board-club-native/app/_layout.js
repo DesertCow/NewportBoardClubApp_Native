@@ -6,18 +6,22 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import { FontAwesome } from '@expo/vector-icons'; 
 import { FontAwesome5 } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
+//* GraphQL
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 import HomeScreen from './Home';
 import ClubEvents from './ClubEvents';
+import EventDetail from './EventDetail';
 import SurfLog from './SurfLog';
 import SurfHacks from './SurfHacks';
 import NewportSurfMap from './NewportSurfMap';
 import Rentals from './Rentals';
 import About from './About';
 import UserSettings from './UserSettings';
-import CreateNewSession from './CreateNewSession'
-import ListOfSessions from './ListOfSessions'
+import CreateNewSession from './CreateNewSession';
+import ListOfSessions from './ListOfSessions';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,11 +38,18 @@ function NBC_Logo() {
   );
 }
 
+// Initialize Apollo Client
+const client = new ApolloClient({
+  uri: 'http://192.168.25.22:4001',
+  cache: new InMemoryCache()
+});
+
 
 export default function App() {
   return (
-
-    // <NavigationContainer>
+    
+  <ApolloProvider client={client}>
+    {/* // <NavigationContainer> */}
       <Stack.Navigator
         screenOptions={{
           // headerTitle: (props) => <NBC_Logo {...props}/>,
@@ -56,6 +67,7 @@ export default function App() {
         {/* //* App Routes/Pages */}
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="ClubEvents" component={ClubEvents} />
+        <Stack.Screen name="EventDetail" component={EventDetail} />
         <Stack.Screen name="SurfLog" component={SurfLog} />
         <Stack.Screen name="SurfHacks" component={SurfHacks} />
         <Stack.Screen name="NewportSurfMap" component={NewportSurfMap} />
@@ -66,7 +78,8 @@ export default function App() {
         <Stack.Screen name="ListOfSessions" component={ListOfSessions} />
 
       </Stack.Navigator>
-    // {/* </NavigationContainer> */}
+    {/* // </NavigationContainer> */}
+    </ApolloProvider>
 
   );
 }
