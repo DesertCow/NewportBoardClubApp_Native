@@ -11,49 +11,48 @@ import { FontAwesome, FontAwesome5, MaterialCommunityIcons, Feather, Ionicons   
 
 //* Import Assets
 const boardClubIcon = require('../../assets/img/BC_Logo_Clear_1.png');
-
-
-//? Temp Status set till API call working
-// let ClubOpen = false;
-
+const tideIcon = require('../../assets/icons/tide_icon.png')
+const tideRiseIcon = require('../../assets/icons/Tide_Rising.png')
+const tideFallIcon = require('../../assets/icons/Tide_Falling.png')
 
 
 function Header() {
 
   const navigation = useNavigation();
-  // const [ClubOpen, setClubOpen] = React.useState(true);
+
+  let tideDirIcon;
 
   //* Get Latest Weather Data from App Server
   var { loading, data } = useQuery(getWX_Q)
 
   if(!loading){
 
-      let currentClubStatus;
+    let currentClubStatus;
 
-      if(data.getWX.clubStatus == true)
-      {
-        currentClubStatus = "Open"
-        // setClubOpen(true)
-        // currentClubStatus = "Closed"
-      }else{
-        currentClubStatus = "Closed"
-        // setClubOpen(false)
-      }
+    if(data.getWX.clubStatus == true)
+    {
+      currentClubStatus = "Open"
+      // setClubOpen(true)
+      // currentClubStatus = "Closed"
+    }else{
+      currentClubStatus = "Closed"
+      // setClubOpen(false)
+    }
+    
+    //* Logic for Tide Direction Icon
+    if (data.getWX.tideRise) {
+        tideDirIcon = <Image style={styles.tideDirectionIcon} source={tideRiseIcon}/>
+        // console.log("Tide Rising")
+    } 
+
+    if (!data.getWX.tideRise) {
+        tideDirIcon = <Image style={styles.tideDirectionIcon} source={tideFallIcon}/>
+        // console.log("Tide Falling")
+    }
 
     if(currentClubStatus == "Open"){
 
-      console.log(data)
-
-      //* Logic for Tide Direction Icon
-      if (data.getWX.tideRise) {
-          // tideDirIcon = <img src={require("../../img/Tide_Rising.png")} className="headerTideDir" alt="Tide Icon" />
-          console.log("Tide Rising")
-      } 
-
-      if (!data.getWX.tideRise) {
-          // tideDirIcon = <img src={require("../../img/Tide_Falling.png")} className="headerTideDir" alt="Tide Icon" />
-          console.log("Tide Falling")
-      }
+      // console.log(data)
 
       return(
 
@@ -69,7 +68,7 @@ function Header() {
 
           <View style={styles.wxBoxCol}>
             <View style={styles.wxBoxRow}>
-              <MaterialCommunityIcons name="waves-arrow-up" size={30} color="black" />
+              <Image style={styles.tideIcon} source={tideIcon}/>
               <Feather name="wind" size={30} color="black" />
               <Text style={styles.wxDataText}> {data.getWX.wind} mph</Text>
             </View>
@@ -81,7 +80,7 @@ function Header() {
             </View>
 
             <View style={styles.wxBoxRow}>
-              <MaterialCommunityIcons name="waves-arrow-up" size={30} color="black" />
+              {tideDirIcon}
               <MaterialCommunityIcons name="coolant-temperature" size={30} color="black" />
               <Text style={styles.wxDataText}> {data.getWX.waterTemp} &deg;F</Text>
             </View>
@@ -95,18 +94,7 @@ function Header() {
 
   if(currentClubStatus == "Closed"){
 
-    console.log(data)
-
-    //* Logic for Tide Direction Icon
-    if (data.getWX.tideRise) {
-        // tideDirIcon = <img src={require("../../img/Tide_Rising.png")} className="headerTideDir" alt="Tide Icon" />
-        console.log("Tide Rising")
-    } 
-
-    if (!data.getWX.tideRise) {
-        // tideDirIcon = <img src={require("../../img/Tide_Falling.png")} className="headerTideDir" alt="Tide Icon" />
-        console.log("Tide Falling")
-    }
+    // console.log(data)
 
     return(
 
@@ -122,7 +110,7 @@ function Header() {
 
         <View style={styles.wxBoxCol}>
           <View style={styles.wxBoxRow}>
-            <MaterialCommunityIcons name="waves-arrow-up" size={30} color="black" />
+            <Image style={styles.tideIcon} source={tideIcon}/>
             <Feather name="wind" size={30} color="black" />
             <Text style={styles.wxDataText}> {data.getWX.wind} mph</Text>
           </View>
@@ -134,7 +122,7 @@ function Header() {
           </View>
 
           <View style={styles.wxBoxRow}>
-            <MaterialCommunityIcons name="waves-arrow-up" size={30} color="black" />
+            {tideDirIcon}
             <MaterialCommunityIcons name="coolant-temperature" size={30} color="black" />
             <Text style={styles.wxDataText}> {data.getWX.waterTemp} &deg;F</Text>
           </View>
@@ -192,6 +180,14 @@ const styles = StyleSheet.create({
   NBCLogo: {
     width: 175, 
     height: 75,
+  },
+  tideIcon: {
+    width: 30,
+    height: 30,
+  },
+  tideDirectionIcon: {
+    width: 40,
+    height: 40,
   }
 });
 
