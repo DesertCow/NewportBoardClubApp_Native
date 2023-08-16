@@ -1,4 +1,4 @@
-import { StyleSheet, View, Image, Text, Platform, Pressable } from 'react-native';
+import { StyleSheet, View, Image, Text, Platform, Pressable, TouchableWithoutFeedback  } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 
@@ -58,11 +58,11 @@ function Header() {
       <View style={styles.header}>
 
         <View style={styles.WxWidget}>
-          <Modal isVisible={wxDisplayStatus}>
-            <Pressable onPress={() => setWxDisplayStatus(false)}>
-             <WxWidget></WxWidget> 
-            </Pressable>
-          </Modal>
+          <TouchableWithoutFeedback onPress={() => setWxDisplayStatus(false)}>
+            <Modal isVisible={wxDisplayStatus} style={styles.WxWidgetModal}>
+              <WxWidget></WxWidget> 
+            </Modal>
+          </TouchableWithoutFeedback>
         </View>
         
 
@@ -74,8 +74,10 @@ function Header() {
           <Text style={styles.clubHouseStatusText}> Club House: <Text style={{color:  currentClubStatus === 'Open' ? "green" : "red"}}>{currentClubStatus}</Text></Text>
         </View>
 
-        <Pressable onPress={() => setWxDisplayStatus(true)}>
+        <Pressable style={styles.wxBox} onPress={() => setWxDisplayStatus(true)}>
+
           <View style={styles.wxBoxCol}>
+
             <View style={styles.wxBoxRow}>
               <Image style={styles.tideIcon} source={tideIcon}/>
               <Feather  style={styles.windIcon} name="wind" size={30} color="black" />
@@ -124,18 +126,22 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS === 'android' ? 60 : 20,
     marginLeft: 10,
   },
+  wxBox: {
+    paddingHorizontal: Platform.OS === 'android' ? 20 : 10,
+  },
   wxBoxCol: {
     flex: 1,
     justifyContent: 'space-between',
-    paddingHorizontal: 5,
+    // paddingHorizontal: 5,
     flexDirection: 'column',
     marginTop: Platform.OS === 'android' ? 60 : 10,
   },
   wxBoxRow: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     marginLeft: 20,
+    // marginHorizontal: 10,
   },
   wxDataText: {
     fontSize: 16,
@@ -177,14 +183,15 @@ const styles = StyleSheet.create({
     height: 30,
   },
   windIcon: {
-     marginLeft: 13,
+     marginLeft: 15,
+     paddingHorizontal: 10,
   },
   waterTempIcon: {
      marginLeft: 4,
   },
-  WxWidget: {
-    // justifyContent: 'center',
-    // alignItems: "center",
+  WxWidgetModal: {
+    justifyContent: 'center',
+    alignItems: "center",
   }
 });
 
