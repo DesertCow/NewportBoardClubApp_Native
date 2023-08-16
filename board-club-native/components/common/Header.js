@@ -32,11 +32,8 @@ function Header() {
     if(data.getWX.clubStatus == true)
     {
       currentClubStatus = "Open"
-      // setClubOpen(true)
-      // currentClubStatus = "Closed"
     }else{
       currentClubStatus = "Closed"
-      // setClubOpen(false)
     }
     
     //* Logic for Tide Direction Icon
@@ -65,20 +62,20 @@ function Header() {
         <View style={styles.wxBoxCol}>
           <View style={styles.wxBoxRow}>
             <Image style={styles.tideIcon} source={tideIcon}/>
-            <Feather name="wind" size={30} color="black" />
-            <Text style={styles.wxDataText}> {data.getWX.wind} mph</Text>
+            <Feather  style={styles.windIcon} name="wind" size={30} color="black" />
+            <Text style={styles.wxDataWindText}> {data.getWX.wind} mph</Text>
           </View>
 
           <View style={styles.wxBoxRow}>
-            <Text style={styles.wxDataText}> {data.getWX.tideMSL} ft</Text>
+            <Text style={styles.wxDataTideText}> {data.getWX.tideMSL} ft</Text>
             <Ionicons name="sunny" size={24} color="black" />
-            <Text style={styles.wxDataText}> {data.getWX.airTemp} &deg;F</Text>
+            <Text style={styles.wxDataTempText}> {data.getWX.airTemp} &deg;F</Text>
           </View>
 
           <View style={styles.wxBoxRow}>
             {tideDirIcon}
-            <MaterialCommunityIcons name="coolant-temperature" size={30} color="black" />
-            <Text style={styles.wxDataText}> {data.getWX.waterTemp} &deg;F</Text>
+            <MaterialCommunityIcons style={styles.waterTempIcon} name="coolant-temperature" size={27} color="black" />
+            <Text style={styles.wxDataWaterTempText}> {data.getWX.waterTemp} &deg;F</Text>
           </View>
           
         </View>
@@ -104,9 +101,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 5,
   },
-  clubHouseColoredText: {
-    // color: ClubOpen === true ? "green" : "red",
-  },
   logoCol: {
     alignSelf: "flex-start",
     flex: 1,
@@ -117,30 +111,60 @@ const styles = StyleSheet.create({
   wxBoxCol: {
     flex: 1,
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
+    paddingHorizontal: 5,
     flexDirection: 'column',
     marginTop: Platform.OS === 'android' ? 60 : 10,
   },
   wxBoxRow: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
+    marginLeft: 20,
   },
   wxDataText: {
     fontSize: 16,
     fontWeight: "bold",
+  },
+  wxDataWindText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginTop: 5,
+  },
+  wxDataTideText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginTop: 3,
+  },
+  wxDataTempText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginTop: 1,
+  },
+  wxDataWaterTempText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginTop: 3,
   },
   NBCLogo: {
     width: 175, 
     height: 75,
   },
   tideIcon: {
+    marginLeft: 13,
     width: 30,
     height: 30,
   },
   tideDirectionIcon: {
-    width: 40,
-    height: 40,
+    marginLeft: 8,
+    // paddingBottom: 10,
+    width: 30,
+    height: 30,
+  },
+  windIcon: {
+     marginLeft: 13,
+  },
+  waterTempIcon: {
+     marginLeft: 4,
   }
 });
 
