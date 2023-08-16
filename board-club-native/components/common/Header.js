@@ -50,52 +50,6 @@ function Header() {
         // console.log("Tide Falling")
     }
 
-    if(currentClubStatus == "Open"){
-
-      // console.log(data)
-
-      return(
-
-        <View style={styles.header}>
-
-          <View style={styles.logoCol}>
-            <Image
-              style={styles.NBCLogo}
-              source={boardClubIcon}
-            />
-            <Text style={styles.clubHouseStatusText}> Club House: <Text style={{color: "green"}}>{currentClubStatus}</Text></Text>
-          </View>
-
-          <View style={styles.wxBoxCol}>
-            <View style={styles.wxBoxRow}>
-              <Image style={styles.tideIcon} source={tideIcon}/>
-              <Feather name="wind" size={30} color="black" />
-              <Text style={styles.wxDataText}> {data.getWX.wind} mph</Text>
-            </View>
-
-            <View style={styles.wxBoxRow}>
-              <Text style={styles.wxDataText}> {data.getWX.tideMSL} ft</Text>
-              <Ionicons name="sunny" size={24} color="black" />
-              <Text style={styles.wxDataText}> {data.getWX.airTemp} &deg;F</Text>
-            </View>
-
-            <View style={styles.wxBoxRow}>
-              {tideDirIcon}
-              <MaterialCommunityIcons name="coolant-temperature" size={30} color="black" />
-              <Text style={styles.wxDataText}> {data.getWX.waterTemp} &deg;F</Text>
-            </View>
-            
-          </View>
-
-        </View>
-
-      )
-  }
-
-  if(currentClubStatus == "Closed"){
-
-    // console.log(data)
-
     return(
 
       <View style={styles.header}>
@@ -105,7 +59,7 @@ function Header() {
             style={styles.NBCLogo}
             source={boardClubIcon}
           />
-          <Text style={styles.clubHouseStatusText}> Club House: <Text style={{color: "red"}}>{currentClubStatus}</Text></Text>
+          <Text style={styles.clubHouseStatusText}> Club House: <Text style={{color:  currentClubStatus === 'Open' ? "green" : "red"}}>{currentClubStatus}</Text></Text>
         </View>
 
         <View style={styles.wxBoxCol}>
@@ -132,7 +86,6 @@ function Header() {
       </View>
 
     )
-    }
   }
 };
 
