@@ -1,10 +1,14 @@
-import { StyleSheet, View, Image, Text, Platform } from 'react-native';
+import { StyleSheet, View, Image, Text, Platform, Pressable, TouchableWithoutFeedback  } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 
 //* GraphQL
 import { useQuery } from '@apollo/client';
 import { getWX_Q } from '../../utils/queries';
+
+//* Component Import
+import WxWidget from './WxWidget';
+import Modal from "react-native-modal";
 
 //* Icon Import
 import { FontAwesome, FontAwesome5, MaterialCommunityIcons, Feather, Ionicons   } from '@expo/vector-icons';
@@ -16,9 +20,11 @@ const tideRiseIcon = require('../../assets/icons/Tide_Rising.png')
 const tideFallIcon = require('../../assets/icons/Tide_Falling.png')
 
 
+
 function Header() {
 
   const navigation = useNavigation();
+  const [wxDisplayStatus, setWxDisplayStatus] = React.useState(false);
 
   let tideDirIcon;
 
@@ -51,6 +57,15 @@ function Header() {
 
       <View style={styles.header}>
 
+        <View style={styles.WxWidget}>
+          <TouchableWithoutFeedback onPress={() => setWxDisplayStatus(false)}>
+            <Modal isVisible={wxDisplayStatus} style={styles.WxWidgetModal}>
+              <WxWidget></WxWidget> 
+            </Modal>
+          </TouchableWithoutFeedback>
+        </View>
+        
+
         <View style={styles.logoCol}>
           <Image
             style={styles.NBCLogo}
@@ -59,27 +74,30 @@ function Header() {
           <Text style={styles.clubHouseStatusText}> Club House: <Text style={{color:  currentClubStatus === 'Open' ? "green" : "red"}}>{currentClubStatus}</Text></Text>
         </View>
 
-        <View style={styles.wxBoxCol}>
-          <View style={styles.wxBoxRow}>
-            <Image style={styles.tideIcon} source={tideIcon}/>
-            <Feather  style={styles.windIcon} name="wind" size={30} color="black" />
-            <Text style={styles.wxDataWindText}> {data.getWX.wind} mph</Text>
-          </View>
+        <Pressable style={styles.wxBox} onPress={() => setWxDisplayStatus(true)}>
 
-          <View style={styles.wxBoxRow}>
-            <Text style={styles.wxDataTideText}> {data.getWX.tideMSL} ft</Text>
-            <Ionicons name="sunny" size={24} color="black" />
-            <Text style={styles.wxDataTempText}> {data.getWX.airTemp} &deg;F</Text>
-          </View>
+          <View style={styles.wxBoxCol}>
 
-          <View style={styles.wxBoxRow}>
-            {tideDirIcon}
-            <MaterialCommunityIcons style={styles.waterTempIcon} name="coolant-temperature" size={27} color="black" />
-            <Text style={styles.wxDataWaterTempText}> {data.getWX.waterTemp} &deg;F</Text>
-          </View>
-          
-        </View>
+            <View style={styles.wxBoxRow}>
+              <Image style={styles.tideIcon} source={tideIcon}/>
+              <Feather  style={styles.windIcon} name="wind" size={30} color="black" />
+              <Text style={styles.wxDataWindText}> {data.getWX.wind} mph</Text>
+            </View>
 
+            <View style={styles.wxBoxRow}>
+              <Text style={styles.wxDataTideText}> {data.getWX.tideMSL} ft</Text>
+              <Ionicons name="sunny" size={24} color="black" />
+              <Text style={styles.wxDataTempText}> {data.getWX.airTemp} &deg;F</Text>
+            </View>
+
+            <View style={styles.wxBoxRow}>
+              {tideDirIcon}
+              <MaterialCommunityIcons style={styles.waterTempIcon} name="coolant-temperature" size={27} color="black" />
+              <Text style={styles.wxDataWaterTempText}> {data.getWX.waterTemp} &deg;F</Text>
+            </View>
+            
+          </View>
+        </Pressable>
       </View>
 
     )
@@ -108,18 +126,22 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS === 'android' ? 60 : 20,
     marginLeft: 10,
   },
+  wxBox: {
+    paddingHorizontal: Platform.OS === 'android' ? 20 : 10,
+  },
   wxBoxCol: {
     flex: 1,
     justifyContent: 'space-between',
-    paddingHorizontal: 5,
+    // paddingHorizontal: 5,
     flexDirection: 'column',
     marginTop: Platform.OS === 'android' ? 60 : 10,
   },
   wxBoxRow: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     marginLeft: 20,
+    // marginHorizontal: 10,
   },
   wxDataText: {
     fontSize: 16,
@@ -161,10 +183,15 @@ const styles = StyleSheet.create({
     height: 30,
   },
   windIcon: {
-     marginLeft: 13,
+     marginLeft: 15,
+     paddingHorizontal: 10,
   },
   waterTempIcon: {
      marginLeft: 4,
+  },
+  WxWidgetModal: {
+    justifyContent: 'center',
+    alignItems: "center",
   }
 });
 
