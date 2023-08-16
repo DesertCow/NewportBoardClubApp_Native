@@ -17,8 +17,6 @@ function EventDetail(nav) {
       variables: { eventId: eventID },
     });
 
-  // console.log("EventID = " + EventID)
-  console.log(nav.route.params.eventID)
 
   if(!loading){
 

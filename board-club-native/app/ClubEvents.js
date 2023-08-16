@@ -51,16 +51,11 @@ function ClubEvents() {
   //* =========== Event Handlers ===========
 
   const displayEventDetails = async (event, reqEventID) => {
-    // event.preventDefault();
-
-    // navigate("/club_events/event/" + reqEventID);
-    console.log("Event (" + reqEventID + ") Clicked!")
 
     navigation.navigate('EventDetail', {
       EventID: reqEventID
     });
-    // navigation.navigate('EventDetail');
-    // console.log(event)
+
   };
 
   //* Get Current Event Data from App Server
@@ -73,44 +68,32 @@ function ClubEvents() {
   
   var historyEventData = data;
 
-  //* Build Events HTML based off passed Event Data
+  //* Build Events View based off passed Event Data
   function buildEventView(eventData){
 
-  // console.log(eventData.eventName)
+    //* Generate IMG and Button for each event
+    finalEventListView.push(
 
-  //* Generate IMG and Button for each event
-  finalEventListView.push(
-    // <div className="eventsDisplayBox" key={eventData._id} onClick={(event) => displayEventDetails(event, eventData._id)}>
-    //   <h1 className="mt-2 pt-4 px-3">{eventData.eventName}</h1>
-    //   <img src={eventData.eventPhotoURL} 
-    //     className="eventIconPhoto mb-1 px-3" 
-    //     alt="Event Photo" />
-    //   <h1 className="mb- mt-2">{eventData.eventDate}</h1>
-    // </div>)
+      <View style={styles.eventsDisplayBox} key={eventData._id} onClick={(event) => console.log("Event Clicked!")}>
+        <Text style={styles.eventTitleText}>{eventData.eventName}</Text>
 
-    
+        <Image
+        style={styles.eventPicture}
+        source={{uri: eventData.eventPhotoURL}}
+        />
 
-    // <View style={styles.eventsDisplayBox} key={eventData._id} onClick={(event) => displayEventDetails(event, eventData._id)}>
-    // <View style={styles.eventsDisplayBox} key={eventData._id} onClick={(event) => console.log("Event (" + eventData._id + ") Clicked!")}>
-    <View style={styles.eventsDisplayBox} key={eventData._id} onClick={(event) => console.log("Event Clicked!")}>
-      <Text style={styles.eventTitleText}>{eventData.eventName}</Text>
+        <Text style={styles.eventDateText}>{eventData.eventDate}</Text>
 
-      <Image
-      style={styles.eventPicture}
-      source={{uri: eventData.eventPhotoURL}}
-      />
+        <TouchableOpacity
+          style={styles.eventButton}
+          // backgroundColor={switchColor}
+          onPress={(event) => displayEventDetails(event, eventData._id)}>
+          <Text style={styles.buttonText}>Event Details</Text>
+        </TouchableOpacity>
 
-      <Text style={styles.eventDateText}>{eventData.eventDate}</Text>
-
-      <TouchableOpacity
-        style={styles.eventButton}
-        // backgroundColor={switchColor}
-        onPress={(event) => displayEventDetails(event, eventData._id)}>
-        <Text style={styles.buttonText}>Event Details</Text>
-      </TouchableOpacity>
-
-    </View>
-  )}
+      </View>
+    )
+  }
 
 
   if(switchStatus && !loading) {
@@ -208,6 +191,7 @@ function ClubEvents() {
   }
 
 }
+
 const styles = StyleSheet.create({
   slideBox: {
     // borderStyle: "solid",
