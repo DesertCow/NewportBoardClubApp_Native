@@ -45,8 +45,6 @@ function WxWidget() {
 
     return (
 
-      // <View>
-        // {/* <Modal isVisible={true}> */}
           <View style={styles.wxWidget}>
 
             <View style={styles.wxBoxCol}>
@@ -73,42 +71,39 @@ function WxWidget() {
 
               <View style={styles.wxBoxRow}>
                 {tideDirIcon}
-                <Text>{data.getWidgetWX.nextTideHeight} {data.getWidgetWX.nextTideType} at {data.getWidgetWX.nextTideTime}</Text>
+                <Text style={styles.wxDataNextTideText} >{data.getWidgetWX.nextTideHeight} FT {data.getWidgetWX.nextTideType} at {data.getWidgetWX.nextTideTime}</Text>
               </View>
 
             </View>
 
-            <View style={styles.wxBoxCol}>
+            <View style={styles.wxSurfCol}>
               
               <View style={styles.wxBoxRow}>
                 <Image style={styles.surfWaveIcon} source={surfWaveIcon}/>
               </View>
 
-              <View style={styles.wxBoxRow}>
+              <View style={styles.wxSurfRow1}>
                 <Text style={styles.surfSpotText}> Blackies: </Text>
-                <Text style={styles.wxDataTempText}> {data.getWidgetWX.surfHeightBlackies} FT</Text>
+                <Text style={styles.surfSpotDataText}> {data.getWidgetWX.surfHeightBlackies} FT</Text>
               </View>
 
-              <View style={styles.wxBoxRow}>
+              <View style={styles.wxSurfRow}>
                 <Text style={styles.surfSpotText}> 36th Street: </Text>
-                <Text style={styles.wxDataTempText}> {data.getWidgetWX.surfHeight36th} FT</Text>
+                <Text style={styles.surfSpotDataText}> {data.getWidgetWX.surfHeight36th} FT</Text>
               </View>
 
-              <View style={styles.wxBoxRow}>
+              <View style={styles.wxSurfRow}>
                 <Text style={styles.surfSpotText}> 56th Street: </Text>
-                <Text style={styles.wxDataTempText}> {data.getWidgetWX.surfHeight56th} FT</Text>
+                <Text style={styles.surfSpotDataText}> {data.getWidgetWX.surfHeight56th} FT</Text>
               </View>
 
-              <View style={styles.wxBoxRow}>
+              <View style={styles.wxSurfRow}>
                 <Text style={styles.surfSpotText}> River Jetties: </Text>
-                <Text style={styles.wxDataTempText}> {data.getWidgetWX.surfHeightRiver} FT</Text>
+                <Text style={styles.surfSpotDataText}> {data.getWidgetWX.surfHeightRiver} FT</Text>
               </View> 
 
             </View>
           </View>
-        // </Modal>
-      // </View>
-
     )
   }
 }
@@ -117,44 +112,53 @@ const styles = StyleSheet.create({
   wxWidget: {
     flex: 1,
     backgroundColor: "#1CADB2",
-    opacity: .85,
-    // maxHeight: Platform.OS === 'android' ? 450 : 130,
-    maxHeight: "50%",
-    minHeight: "50%",
+    borderRadius: 25,
+    opacity: .90,
+    maxHeight: "35%",
+    minHeight: "35%",
     width: "100%",
     flexDirection: 'row',
-    // justifyContent: 'flex-start',
-    // alignItems: "center"
   },
   wxBoxCol: {
     flex: 1,
-    // justifyContent: 'space-between',
-    // paddingHorizontal: 5,
+    alignItems: "stretch",
     flexDirection: 'column',
-    marginTop: Platform.OS === 'android' ? 60 : 10,
+    marginTop: 20,
+  },
+  wxSurfCol: {
+    flex: 1,
+    alignItems: "center",
+    flexDirection: 'column',
+    marginTop: 10,
   },
   wxBoxRow: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'center',
-    // marginLeft: 20,
-    minWidth: 150,
-    // marginHorizontal: 10,
+    justifyContent: 'start',
+    marginLeft: 20,
+  },
+  wxSurfRow: {
+    flex: 1,
+    flexDirection: 'row',
+    marginLeft: 20,
+  },
+  wxSurfRow1: {
+    flex: 1,
+    flexDirection: 'row',
+    marginLeft: 20,
+    marginTop: 10,
   },
   tideIcon: {
-    // marginLeft: 13,
     width: 30,
     height: 30,
   },
   tideDirectionIcon: {
-    // marginLeft: 8,
-    // paddingBottom: 10,
     width: 30,
     height: 30,
   },
   windIcon: {
     //  marginLeft: 15,
-     paddingHorizontal: 10,
+    //  paddingHorizontal: 10,
   },
   waterTempIcon: {
     //  marginLeft: 4,
@@ -166,6 +170,27 @@ const styles = StyleSheet.create({
   surfSpotText: {
     fontSize: 15,
     fontWeight: 'bold',
+  },
+  wxDataTempText: {
+    marginLeft: 30,
+  },
+  wxDataTideText: {
+    marginLeft: 25,
+  },
+  wxDataWindText: {
+    marginLeft: 25,
+  },
+  wxDataTideText: {
+    marginLeft: 25,
+  },
+  wxDataNextTideText: {
+    fontSize: 12,
+    textAlign: "center",
+    marginLeft: 15,
+  },
+  surfSpotDataText: {
+    marginTop: 2,
+    fontSize: 12,
   },
 })
 
