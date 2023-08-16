@@ -4,7 +4,7 @@ import React from 'react';
 
 //* GraphQL
 import { useQuery } from '@apollo/client';
-import { getWX_Q } from '../../utils/queries';
+import { getWidgetWX_Q } from '../../utils/queries';
 
 import Modal from "react-native-modal";
 
@@ -16,22 +16,101 @@ const boardClubIcon = require('../../assets/img/BC_Logo_Clear_1.png');
 const tideIcon = require('../../assets/icons/tide_icon.png')
 const tideRiseIcon = require('../../assets/icons/Tide_Rising.png')
 const tideFallIcon = require('../../assets/icons/Tide_Falling.png')
+const surfWaveIcon = require('../../assets/icons/surf-wave-icon.jpg')
 
 
 function WxWidget() {
 
-  return (
+  //* Get Latest Weather Data from App Server
+  var { loading, data } = useQuery(getWidgetWX_Q)
 
-    // <View>
-      // {/* <Modal isVisible={true}> */}
-        <View style={styles.wxWidget}>
-          <Text>I am the modal content!</Text>
-        </View>
-      // </Modal>
-    // </View>
+  let tideDirIcon;
 
-  )
 
+  if(!loading){
+
+
+
+
+    //* Logic for Tide Direction Icon
+    if (data.getWidgetWX.tideRise) {
+        tideDirIcon = <Image style={styles.tideDirectionIcon} source={tideRiseIcon}/>
+        // console.log("Tide Rising")
+    } 
+
+    if (!data.getWidgetWX.tideRise) {
+        tideDirIcon = <Image style={styles.tideDirectionIcon} source={tideFallIcon}/>
+        // console.log("Tide Falling")
+    }
+
+    return (
+
+      // <View>
+        // {/* <Modal isVisible={true}> */}
+          <View style={styles.wxWidget}>
+
+            <View style={styles.wxBoxCol}>
+
+              <View style={styles.wxBoxRow}>
+                <MaterialCommunityIcons style={styles.waterTempIcon} name="coolant-temperature" size={27} color="black" />
+                <Text style={styles.wxDataTempText}> {data.getWidgetWX.airTemp} &deg;F</Text>
+              </View>
+
+              <View style={styles.wxBoxRow}>
+                <Ionicons name="sunny" size={24} color="black" />
+                <Text style={styles.wxDataTempText}> {data.getWidgetWX.airTemp} &deg;F</Text>
+              </View>
+              
+              <View style={styles.wxBoxRow}>
+                <Feather  style={styles.windIcon} name="wind" size={30} color="black" />
+                <Text style={styles.wxDataWindText}> {data.getWidgetWX.wind} mph</Text>
+              </View>
+
+              <View style={styles.wxBoxRow}>
+                <Image style={styles.tideIcon} source={tideIcon}/>
+                <Text style={styles.wxDataTideText}> {data.getWidgetWX.tideMSL} ft</Text>
+              </View>
+
+              <View style={styles.wxBoxRow}>
+                {tideDirIcon}
+                <Text>{data.getWidgetWX.nextTideHeight} {data.getWidgetWX.nextTideType} at {data.getWidgetWX.nextTideTime}</Text>
+              </View>
+
+            </View>
+
+            <View style={styles.wxBoxCol}>
+              
+              <View style={styles.wxBoxRow}>
+                <Image style={styles.surfWaveIcon} source={surfWaveIcon}/>
+              </View>
+
+              <View style={styles.wxBoxRow}>
+                <Text style={styles.surfSpotText}> Blackies: </Text>
+                <Text style={styles.wxDataTempText}> {data.getWidgetWX.surfHeightBlackies} FT</Text>
+              </View>
+
+              <View style={styles.wxBoxRow}>
+                <Text style={styles.surfSpotText}> 36th Street: </Text>
+                <Text style={styles.wxDataTempText}> {data.getWidgetWX.surfHeight36th} FT</Text>
+              </View>
+
+              <View style={styles.wxBoxRow}>
+                <Text style={styles.surfSpotText}> 56th Street: </Text>
+                <Text style={styles.wxDataTempText}> {data.getWidgetWX.surfHeight56th} FT</Text>
+              </View>
+
+              <View style={styles.wxBoxRow}>
+                <Text style={styles.surfSpotText}> River Jetties: </Text>
+                <Text style={styles.wxDataTempText}> {data.getWidgetWX.surfHeightRiver} FT</Text>
+              </View> 
+
+            </View>
+          </View>
+        // </Modal>
+      // </View>
+
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -40,12 +119,53 @@ const styles = StyleSheet.create({
     backgroundColor: "#1CADB2",
     opacity: .85,
     // maxHeight: Platform.OS === 'android' ? 450 : 130,
-    maxHeight: 300,
-    minHeight: 300,
-    width: "80%",
+    maxHeight: "50%",
+    minHeight: "50%",
+    width: "100%",
+    flexDirection: 'row',
+    // justifyContent: 'flex-start',
+    // alignItems: "center"
+  },
+  wxBoxCol: {
+    flex: 1,
+    // justifyContent: 'space-between',
+    // paddingHorizontal: 5,
+    flexDirection: 'column',
+    marginTop: Platform.OS === 'android' ? 60 : 10,
+  },
+  wxBoxRow: {
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    // alignItems: "center"
+    // marginLeft: 20,
+    minWidth: 150,
+    // marginHorizontal: 10,
+  },
+  tideIcon: {
+    // marginLeft: 13,
+    width: 30,
+    height: 30,
+  },
+  tideDirectionIcon: {
+    // marginLeft: 8,
+    // paddingBottom: 10,
+    width: 30,
+    height: 30,
+  },
+  windIcon: {
+    //  marginLeft: 15,
+     paddingHorizontal: 10,
+  },
+  waterTempIcon: {
+    //  marginLeft: 4,
+  },
+  surfWaveIcon: {
+    width: 100,
+    height: 50,
+  },
+  surfSpotText: {
+    fontSize: 15,
+    fontWeight: 'bold',
   },
 })
 
