@@ -16,6 +16,7 @@ import ClubEvents from './ClubEvents';
 import EventDetail from './EventDetail';
 import SurfLog from './SurfLog';
 import SurfHacks from './SurfHacks';
+import SurfHackDetail from "./SurfHackDetail";
 import NewportSurfMap from './NewportSurfMap';
 import Rentals from './Rentals';
 import About from './About';
@@ -70,6 +71,7 @@ export default function App() {
         <Stack.Screen name="EventDetail" component={EventDetail} />
         <Stack.Screen name="SurfLog" component={SurfLog} />
         <Stack.Screen name="SurfHacks" component={SurfHacks} />
+        <Stack.Screen name="SurfHackDetail" component={SurfHackDetail} />
         <Stack.Screen name="NewportSurfMap" component={NewportSurfMap} />
         <Stack.Screen name="Rentals" component={Rentals} />
         <Stack.Screen name="About" component={About} />
