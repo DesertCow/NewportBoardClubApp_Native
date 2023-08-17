@@ -12,6 +12,7 @@
   "dependencies": {
     "@apollo/client": "^3.8.1",
     "@expo/vector-icons": "^13.0.0",
+    "@react-native-community/checkbox": "^0.5.16",
     "@react-native-picker/picker": "2.4.10",
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.13",
@@ -25,6 +26,7 @@
     "react": "18.2.0",
     "react-dom": "^18.2.0",
     "react-native": "0.72.3",
+    "react-native-check-box": "^2.1.7",
     "react-native-dotenv": "^3.4.9",
     "react-native-gesture-handler": "^2.12.1",
     "react-native-modal": "^13.0.1",
