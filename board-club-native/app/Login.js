@@ -9,16 +9,31 @@ import FooterLogin from "../components/common/FooterLogin";
 //* Import Assets
 const boardClubIcon = require('../assets/img/BC_Logo_Clear_1.png')
 
+//* GraphQL
+import { LOGIN_M } from '../utils/mutations'
+import { useMutation } from '@apollo/client';
+
 function LoginMain( { navigation } ) {
 
   const [loginEmail, setLoginEmail] = React.useState();
   const [loginPassword, setLoginPassword] = React.useState();
 
-  function makeLoginRequest(){
+  const [login, { data }] = useMutation(LOGIN_M);
+
+  async function makeLoginRequest(){
 
     console.log("Make Login Request")
     console.log("Email: " + loginEmail)
     console.log("Password: " + loginPassword)
+
+    const { data } = await login({
+      
+      variables: { 
+        memberEmail: loginEmail,
+        password: loginPassword,
+      },
+
+    })
 
   }
 
@@ -44,7 +59,7 @@ function LoginMain( { navigation } ) {
             onChangeText={setLoginEmail}
             value={loginEmail}
             // defaultValue='MM/DD/YYYY'
-            inputMode="text"
+            inputMode="email"
           />
 
           <Text style={styles.passwordText}>Password:</Text>
