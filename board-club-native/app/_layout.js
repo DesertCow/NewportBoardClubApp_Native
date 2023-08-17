@@ -23,6 +23,9 @@ import About from './About';
 import UserSettings from './UserSettings';
 import CreateNewSession from './CreateNewSession';
 import ListOfSessions from './ListOfSessions';
+import LoginMain from './Login'
+import PasswordRecovery from './PasswordRecovery';
+import Registration from './Registration';
 
 const Stack = createNativeStackNavigator();
 
@@ -53,16 +56,7 @@ export default function App() {
     {/* // <NavigationContainer> */}
       <Stack.Navigator
         screenOptions={{
-          // headerTitle: (props) => <NBC_Logo {...props}/>,
           headerShown: false
-          // headerStyle: {
-          //   backgroundColor: '#D8D8D8',
-          //   height: 150,
-          // },
-          // headerTintColor: '#fff',
-          // headerTitleStyle: {
-          //   fontWeight: 'bold',
-          // },
         }}
       >
         {/* //* App Routes/Pages */}
@@ -78,6 +72,9 @@ export default function App() {
         <Stack.Screen name="UserSettings" component={UserSettings} />
         <Stack.Screen name="CreateNewSession" component={CreateNewSession} />
         <Stack.Screen name="ListOfSessions" component={ListOfSessions} />
+        <Stack.Screen name="Login" component={LoginMain} />
+        <Stack.Screen name="PasswordRecovery" component={PasswordRecovery} />
+        <Stack.Screen name="Registration" component={Registration} />
 
       </Stack.Navigator>
     {/* // </NavigationContainer> */}
