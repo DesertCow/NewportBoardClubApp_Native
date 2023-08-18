@@ -15,19 +15,20 @@ import { defaultProfilePictureUpload_Q } from '../utils/queries';
 
 function Registration( { navigation } ) {
 
-  const [memberFirstName, setmemberFirstName] = React.useState();
-  const [memberLastName, setmemberLastName] = React.useState();
-  const [memberEmail, setmemberEmail] = React.useState();
-  const [password, setpassword] = React.useState();
-  const [confirmPassword, setconfirmPassword] = React.useState();
-  const [clubPassword, setClubPassword] = React.useState();
+  const [signUpData, setSignUpData] = React.useState({ memberEmail: "", password: "", confirmPassword: "", memberFirstName: "", memberLastName: "", clubPassword: "" });
 
   const [tosCheckbox, setTosCheckbox] = React.useState(false);
   const [toggleCheckBox, setToggleCheckBox] = React.useState(false)
-  // const tosCheckbox = false;
 
+  //* GraphQL 
   const [createUser, { error, data }] = useMutation(CREATE_USER);
   const [getDefaultProfilePictureUpload, { defaultProfilePictureUploadData } ] = useLazyQuery(defaultProfilePictureUpload_Q);
+
+
+  //* Update values when input Changed
+  const registrationDataUpdated = (data, name) => {
+    setSignUpData({ ...signUpData, [name]: data });
+  };
 
   function TOScheckboxUpdate() {
 
@@ -52,21 +53,17 @@ function Registration( { navigation } ) {
 
   async function submitSignupData(){
 
-    // Check that Checkbox is checked
-
+    //* Check that TOS and Privacy Policy has been accepted
     if(toggleCheckBox) {
 
-      // console.log("Create New User!")
-
-      // console.log(memberEmail + password + memberFirstName + memberLastName + clubPassword)
-      // const { memberEmail, password, memberFirstName, memberLastName, clubPassword } = signupData;
-      const signupData = { memberEmail, password, memberFirstName, memberLastName, clubPassword }
-      // console.log(signupData)
+      const { memberEmail, password, memberFirstName, memberLastName, clubPassword } = signUpData;
+      // const signupData = { memberEmail, password, memberFirstName, memberLastName, clubPassword }
+      console.log(memberEmail)
 
         //* Create New User In Database
         try {
           const { data } = await createUser({
-            variables: { ...signupData },
+            variables: { ...signUpData },
           });
 
           //* Generate New JWT Token
@@ -84,7 +81,6 @@ function Registration( { navigation } ) {
 
           // console.log(defaultProfileData)
           
-          // toast.success("Sign-Up Successful!", toastOptions);
           // console.log("Sign-Up Successful!");
           // navigate("/home")
 
@@ -121,43 +117,36 @@ function Registration( { navigation } ) {
 
             <TextInput
               style={styles.nameInput}
-              onChangeText={setmemberFirstName}
-              value={memberFirstName}
+              name="memberFirstName"
               placeholder="First Name"
-              // defaultValue='MM/DD/YYYY'
               inputMode="email"
+              onChangeText={(data) => registrationDataUpdated(data,"memberFirstName")}
             />
 
             <TextInput
               style={styles.nameInput}
-              onChangeText={setmemberLastName}
-              value={memberLastName}
+              onChangeText={(data) => registrationDataUpdated(data,"memberLastName")}
               placeholder="Last Name"
               inputMode="text"
-              // secureTextEntry={true}
             />
 
             <TextInput
               style={styles.emailInput}
-              onChangeText={setmemberEmail}
-              value={memberEmail}
+              onChangeText={(data) => registrationDataUpdated(data,"memberEmail")}
               placeholder="Email"
-              // defaultValue='MM/DD/YYYY'
               inputMode="email"
             />
 
             <TextInput
               style={styles.passwordInput}
-              onChangeText={setpassword}
-              value={password}
+              onChangeText={(data) => registrationDataUpdated(data,"password")}
               placeholder="Password"
               inputMode="text"
               secureTextEntry={true}
             />
             <TextInput
               style={styles.passwordInputConfirm}
-              onChangeText={setconfirmPassword}
-              value={confirmPassword}
+              onChangeText={(data) => registrationDataUpdated(data,"confirmPassword")}
               placeholder="Confirm Password"
               inputMode="text"
               secureTextEntry={true}
@@ -165,8 +154,7 @@ function Registration( { navigation } ) {
 
             <TextInput
               style={styles.clubPassword}
-              onChangeText={setClubPassword}
-              value={clubPassword}
+              onChangeText={(data) => registrationDataUpdated(data,"clubPassword")}
               placeholder="Club Registration Password"
               inputMode="text"
               secureTextEntry={true}
@@ -177,11 +165,9 @@ function Registration( { navigation } ) {
                 style={styles.checkBox}
                 disabled={false}
                 isChecked={toggleCheckBox}
-                // onClick={()=>{setToggleCheckBox(true)}}
                 onClick={()=>{TOScheckboxUpdate()}}
-                // onValueChange={(newValue) => setToggleCheckBox(newValue)}
               />
-              <Text>By signing up you are accepting the <Text style={styles.TOS_Text} onPress={() => navigation.navigate('TermsOfService')}>Terms Of Service</Text> and <Text style={styles.TOS_Text} onPress={() => navigation.navigate('PrivacyPolicy')}>Privacy Policy</Text>.</Text>
+              <Text>I agree to the Newport Board Club <Text style={styles.TOS_Text} onPress={() => navigation.navigate('TermsOfService')}>Terms Of Service</Text> and <Text style={styles.TOS_Text} onPress={() => navigation.navigate('PrivacyPolicy')}>Privacy Policy</Text>.</Text>
             </View>
 
             <TouchableOpacity
@@ -193,18 +179,6 @@ function Registration( { navigation } ) {
             {/* <Text style={styles.passwordRecoveryText} onPress={() => navigation.navigate('PasswordRecovery')}>Password Recovery</Text> */}
 
           </View>       
-
-        {/* <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('PrivacyPolicy')}>
-          <Text style={styles.buttonText}>Privacy Policy</Text>
-        </TouchableOpacity> */}
-
-        {/* <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('TermsOfService')}>
-          <Text style={styles.buttonText}>Terms Of Service</Text>
-        </TouchableOpacity> */}
 
         <TouchableOpacity
           style={styles.buttonLogin}
@@ -379,7 +353,7 @@ const styles = StyleSheet.create({
   },
   TOS_Text: {
     // marginTop: 20,
-    fontSize: 12,
+    fontSize: 13,
     color: "blue",
     textDecorationLine: 'underline',
     fontWeight: 'bold',
