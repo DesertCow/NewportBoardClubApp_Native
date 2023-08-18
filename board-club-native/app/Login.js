@@ -117,6 +117,7 @@ const styles = StyleSheet.create({
     // minHeight: 450,
     paddingVertical: 30,
     marginTop: 30,
+    marginBottom: 50,
   },
   emailText: {
     marginTop: 10,
@@ -175,7 +176,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
     fontWeight: 'bold',
-  }
+  },
 })
 
 export default LoginMain;

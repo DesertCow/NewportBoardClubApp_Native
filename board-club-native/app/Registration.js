@@ -176,8 +176,6 @@ function Registration( { navigation } ) {
               <Text style={styles.buttonText}>Sign Up</Text>
             </TouchableOpacity>
 
-            {/* <Text style={styles.passwordRecoveryText} onPress={() => navigation.navigate('PasswordRecovery')}>Password Recovery</Text> */}
-
           </View>       
 
         <TouchableOpacity
