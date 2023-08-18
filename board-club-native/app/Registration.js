@@ -1,4 +1,4 @@
-import { Text, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, Image, View, TextInput } from 'react-native';
+import { Text, SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, Image, View, TextInput, Alert } from 'react-native';
 import React from 'react';
 
 // import CheckBox from '@react-native-community/checkbox';
@@ -7,26 +7,98 @@ import CheckBox from 'react-native-check-box'
 //* Import Assets
 const boardClubIcon = require('../assets/img/BC_Logo_Clear_1.png')
 
-
+//* GraphQL
+import { useMutation, useLazyQuery } from '@apollo/client';
+import { CREATE_USER } from '../utils/mutations';
+import { defaultProfilePictureUpload_Q } from '../utils/queries';
 
 
 function Registration( { navigation } ) {
 
-  const [firstName, setFirstName] = React.useState();
-  const [lastName, setLastName] = React.useState();
-  const [loginEmail, setLoginEmail] = React.useState();
-  const [loginPassword, setLoginPassword] = React.useState();
-  const [loginPasswordConfirm, setLoginPasswordConfirm] = React.useState();
+  const [memberFirstName, setmemberFirstName] = React.useState();
+  const [memberLastName, setmemberLastName] = React.useState();
+  const [memberEmail, setmemberEmail] = React.useState();
+  const [password, setpassword] = React.useState();
+  const [confirmPassword, setconfirmPassword] = React.useState();
   const [clubPassword, setClubPassword] = React.useState();
 
   const [tosCheckbox, setTosCheckbox] = React.useState(false);
   const [toggleCheckBox, setToggleCheckBox] = React.useState(false)
   // const tosCheckbox = false;
 
-  // function TOScheckboxUpdate(newValue) {
-  //   console.log(newValue)
-  //   // setTosCheckbox(checkBoxStatus);
-  // }
+  const [createUser, { error, data }] = useMutation(CREATE_USER);
+  const [getDefaultProfilePictureUpload, { defaultProfilePictureUploadData } ] = useLazyQuery(defaultProfilePictureUpload_Q);
+
+  function TOScheckboxUpdate() {
+
+    if(toggleCheckBox) {
+      setToggleCheckBox(false)
+    }
+    else {
+      setToggleCheckBox(true)
+    }
+  }
+
+  const checkBoxAlert = () =>
+    Alert.alert('Please Accept Terms Of Serice and Privacy Policy', 'My Alert Msg', [
+    {
+      text: 'Cancel',
+      onPress: () => console.log('Cancel Pressed'),
+      style: 'cancel',
+    },
+    {text: 'OK', onPress: () => console.log('OK Pressed')},
+  ]);
+
+
+  async function submitSignupData(){
+
+    // Check that Checkbox is checked
+
+    if(toggleCheckBox) {
+
+      console.log("Create New User!")
+
+      // console.log(memberEmail + password + memberFirstName + memberLastName + clubPassword)
+      // const { memberEmail, password, memberFirstName, memberLastName, clubPassword } = signupData;
+      const signupData = { memberEmail, password, memberFirstName, memberLastName, clubPassword }
+      console.log(signupData)
+
+        //* Create New User In Database
+        try {
+          const { data } = await createUser({
+            variables: { ...signupData },
+          });
+
+          //* Generate New JWT Token
+          // Auth.login(JSON.stringify(data.createUser));
+
+          //* Grab and Decode JWT Token
+          // let jwtToken = Auth.getProfile()
+
+          // console.log("New User ID: " + jwtToken.data._id)
+
+          //* Trigger Sever to upload a default User Profile Picture for new Account
+          // const defaultProfileData = await getDefaultProfilePictureUpload({
+          //   variables: { userId: jwtToken.data._id},
+          // });
+
+          // console.log(defaultProfileData)
+          
+          // toast.success("Sign-Up Successful!", toastOptions);
+          // console.log("Sign-Up Successful!");
+          // navigate("/home")
+
+        } catch (e) {
+          // toast.error("Sign-Up Failed", toastOptions);
+          console.error(e);
+        }
+
+    }
+    else {
+      console.log("Checkbox is not checked!")
+      // {checkBoxAlert}
+    }
+  }
 
   return (
 
@@ -49,8 +121,8 @@ function Registration( { navigation } ) {
 
             <TextInput
               style={styles.nameInput}
-              onChangeText={setFirstName}
-              value={firstName}
+              onChangeText={setmemberFirstName}
+              value={memberFirstName}
               placeholder="First Name"
               // defaultValue='MM/DD/YYYY'
               inputMode="email"
@@ -58,17 +130,17 @@ function Registration( { navigation } ) {
 
             <TextInput
               style={styles.nameInput}
-              onChangeText={setLastName}
-              value={lastName}
+              onChangeText={setmemberLastName}
+              value={memberLastName}
               placeholder="Last Name"
               inputMode="text"
-              secureTextEntry={true}
+              // secureTextEntry={true}
             />
 
             <TextInput
               style={styles.emailInput}
-              onChangeText={setLoginEmail}
-              value={loginEmail}
+              onChangeText={setmemberEmail}
+              value={memberEmail}
               placeholder="Email"
               // defaultValue='MM/DD/YYYY'
               inputMode="email"
@@ -76,16 +148,16 @@ function Registration( { navigation } ) {
 
             <TextInput
               style={styles.passwordInput}
-              onChangeText={setLoginPassword}
-              value={loginPassword}
+              onChangeText={setpassword}
+              value={password}
               placeholder="Password"
               inputMode="text"
               secureTextEntry={true}
             />
             <TextInput
               style={styles.passwordInputConfirm}
-              onChangeText={setLoginPasswordConfirm}
-              value={loginPasswordConfirm}
+              onChangeText={setconfirmPassword}
+              value={confirmPassword}
               placeholder="Confirm Password"
               inputMode="text"
               secureTextEntry={true}
@@ -104,7 +176,9 @@ function Registration( { navigation } ) {
               <CheckBox
                 style={styles.checkBox}
                 disabled={false}
-                value={toggleCheckBox}
+                isChecked={toggleCheckBox}
+                // onClick={()=>{setToggleCheckBox(true)}}
+                onClick={()=>{TOScheckboxUpdate()}}
                 // onValueChange={(newValue) => setToggleCheckBox(newValue)}
               />
               <Text>By signing up you are accepting the <Text style={styles.TOS_Text} onPress={() => navigation.navigate('TermsOfService')}>Terms Of Service</Text> and <Text style={styles.TOS_Text} onPress={() => navigation.navigate('PrivacyPolicy')}>Privacy Policy</Text>.</Text>
@@ -112,7 +186,7 @@ function Registration( { navigation } ) {
 
             <TouchableOpacity
               style={styles.signUpBTN}
-              onPress={() => navigation.navigate('PrivacyPolicy')}>
+              onPress={() => {submitSignupData()}}>
               <Text style={styles.buttonText}>Sign Up</Text>
             </TouchableOpacity>
 
@@ -204,7 +278,7 @@ const styles = StyleSheet.create({
   },
   loginBox: {
     backgroundColor: "#AFAFAF",
-    marginHorizontal: 15,
+    marginHorizontal: 40,
     borderRadius: 25,
     // maxHeight: 450,
     // minHeight: 450,
