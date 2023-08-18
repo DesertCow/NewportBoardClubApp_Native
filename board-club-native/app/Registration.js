@@ -56,12 +56,12 @@ function Registration( { navigation } ) {
 
     if(toggleCheckBox) {
 
-      console.log("Create New User!")
+      // console.log("Create New User!")
 
       // console.log(memberEmail + password + memberFirstName + memberLastName + clubPassword)
       // const { memberEmail, password, memberFirstName, memberLastName, clubPassword } = signupData;
       const signupData = { memberEmail, password, memberFirstName, memberLastName, clubPassword }
-      console.log(signupData)
+      // console.log(signupData)
 
         //* Create New User In Database
         try {
