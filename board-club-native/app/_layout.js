@@ -26,6 +26,8 @@ import ListOfSessions from './ListOfSessions';
 import LoginMain from './Login'
 import PasswordRecovery from './PasswordRecovery';
 import Registration from './Registration';
+import PrivacyPolicy from './PrivacyPolicy';
+import TermsOfService from './TermsOfService';
 
 const Stack = createNativeStackNavigator();
 
@@ -75,6 +77,8 @@ export default function App() {
         <Stack.Screen name="Login" component={LoginMain} />
         <Stack.Screen name="PasswordRecovery" component={PasswordRecovery} />
         <Stack.Screen name="Registration" component={Registration} />
+        <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
+        <Stack.Screen name="TermsOfService" component={TermsOfService} />
 
       </Stack.Navigator>
     {/* // </NavigationContainer> */}

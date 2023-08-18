@@ -68,7 +68,7 @@ function LoginMain( { navigation } ) {
             style={styles.emailInput}
             onChangeText={setLoginPassword}
             value={loginPassword}
-            inputMode="password"
+            inputMode="text"
             secureTextEntry={true}
           />
 
