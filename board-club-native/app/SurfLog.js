@@ -69,7 +69,7 @@ function SurfLog() {
           <View>
             <Image
             style={styles.memberProfilePicture}
-            source={{uri:"https://theboardclubprofilepictures.s3.us-west-1.amazonaws.com/64b5dc72997c339bf80a95f6.jpg" }}
+            source={{uri:"https://theboardclubprofilepictures.s3.us-west-1.amazonaws.com/64e01203d2fa09f5f688184d.jpg" }}
             // source={{uri: {profilePictureURL} }}
             />
           </View>
