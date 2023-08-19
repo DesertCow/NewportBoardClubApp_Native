@@ -76,7 +76,7 @@ function Registration( { navigation } ) {
           // Auth.login(JSON.stringify(data.createUser));
           Auth.login(data.createUser.token);
 
-          console.log("Auth Get Token: " + Auth.getToken())
+          console.log("Auth Get Token: " + JSON.stringify(Auth.getToken()))
           console.log(Auth.getToken())
 
           //* Grab and Decode JWT Token

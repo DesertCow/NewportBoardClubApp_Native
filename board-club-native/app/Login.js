@@ -6,6 +6,9 @@ import Footer from '../components/common/Footer';
 // import Header from "../components/common/Header";
 import FooterLogin from "../components/common/FooterLogin";
 
+//* Auth Import
+import Auth from '../utils/auth';
+
 //* Import Assets
 const boardClubIcon = require('../assets/img/BC_Logo_Clear_1.png')
 
@@ -34,6 +37,13 @@ function LoginMain( { navigation } ) {
       },
 
     })
+
+    //* Store JWT via Auth
+    await Auth.login(JSON.stringify(data.login.token));
+
+    // console.log("Return Token: " + await Auth.getToken())
+
+    console.log("Decoded Token: " + await Auth.getProfile())
 
   }
 
