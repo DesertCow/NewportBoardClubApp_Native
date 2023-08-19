@@ -1,10 +1,14 @@
 import { Text, SafeAreaView, StyleSheet, ScrollView, View, Image, TouchableOpacity } from 'react-native';
-
+import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 //* Components Import
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
+
+//* Auth Import
+import Auth from '../utils/auth';
+
 
 const MemberName = "Clayton Skaggs"
 const SessionCountData = 3;
@@ -16,75 +20,129 @@ function SurfLog() {
 
   const navigation = useNavigation();
 
-  return (
+  const [profileLoading, setProfileLoading] = React.useState(true);
+  // const [profilePictureURL2, setProfilePictureURL] = React.useState();
+  profilePictureURL = null
 
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#E0F2F7"}}>
+  async function loadProfile() {
+    
+    let profile = await Auth.getProfile()
+    profile = await profile.data
 
-      <Header  style={{ position: "absolute"}}></Header>
+    console.log("ID: " + profile._id)
+    // setProfilePictureURL("https://theboardclubprofilepictures.s3.us-west-1.amazonaws.com/" + profile._id + ".jpg")
+    profilePictureURL = "https://theboardclubprofilepictures.s3.us-west-1.amazonaws.com/" + profile._id + ".jpg"
 
-      <ScrollView>
-        
-        <View>
-          <Text style={styles.memberName}>{MemberName}</Text>
-        </View>
+    // await console.log(profilePictureURL)
 
-        <View>
-          <Image
-          style={styles.memberProfilePicture}
-          source={{uri:"https://theboardclubprofilepictures.s3.us-west-1.amazonaws.com/64b5dc72997c339bf80a95f6.jpg" }}
-          />
-        </View>
+    
 
-        <View>
-          <Text style={styles.surfSessionTitle}>Sessions Stats</Text>
-        </View>
+  }
 
-        <View style={styles.sessionStatsBox}>
-          <Text style={styles.sessionData}>
-            Session Count: {SessionCountData}
-          </Text>
+  //* Load Profile Data
+  loadProfile().then(() => {
+    console.log("~~~~~~~THEN STATEMENT~~~~~~~~~")
+    console.log(profilePictureURL)
+    setProfileLoading(false)
+  })
 
-          <Text style={styles.sessionData}>
-            Favroite Board: 6'0 DHD Phoenix
-          </Text>
+  
+  if(!profileLoading) {
 
-          <Text style={styles.sessionData}>
-            Favroite Surf Spot: 36th ST
-          </Text>
+    // console.log("Loading Status = " + profileLoading + "(" + profilePictureURL2 + ")")
+    console.log("Profile Picture URL Loaded!")
+    console.log(profilePictureURL)
+    console.log("Loading Status = " + profileLoading)
 
-          <Text style={styles.sessionData}>
-            Longest Session: 1:36
-          </Text>
+    return (
 
-          <Text style={styles.sessionData}>
-            Last Session: 6/12/2023
-          </Text>
-        </View>
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#E0F2F7"}}>
 
-        <View style={styles.buttonView}>
+        <Header  style={{ position: "absolute"}}></Header>
 
-          <TouchableOpacity
-            style={styles.sessionButton}
-            onPress={() => navigation.navigate('CreateNewSession')}>
-            <Text style={styles.buttonText}>Create New Session</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.sessionButton}
-            onPress={() => navigation.navigate('ListOfSessions')}>
-            <Text style={styles.buttonText}>List Of Sessions</Text>
-          </TouchableOpacity>
+        <ScrollView>
           
-        </View>
+          <View>
+            <Text style={styles.memberName}>{MemberName}</Text>
+          </View>
 
+          <View>
+            <Image
+            style={styles.memberProfilePicture}
+            source={{uri:"https://theboardclubprofilepictures.s3.us-west-1.amazonaws.com/64b5dc72997c339bf80a95f6.jpg" }}
+            // source={{uri: {profilePictureURL} }}
+            />
+          </View>
+
+          <View>
+            <Text style={styles.surfSessionTitle}>Sessions Stats</Text>
+          </View>
+
+          <View style={styles.sessionStatsBox}>
+            <Text style={styles.sessionData}>
+              Session Count: {SessionCountData}
+            </Text>
+
+            <Text style={styles.sessionData}>
+              Favroite Board: 6'0 DHD Phoenix
+            </Text>
+
+            <Text style={styles.sessionData}>
+              Favroite Surf Spot: 36th ST
+            </Text>
+
+            <Text style={styles.sessionData}>
+              Longest Session: 1:36
+            </Text>
+
+            <Text style={styles.sessionData}>
+              Last Session: 6/12/2023
+            </Text>
+          </View>
+
+          <View style={styles.buttonView}>
+
+            <TouchableOpacity
+              style={styles.sessionButton}
+              onPress={() => navigation.navigate('CreateNewSession')}>
+              <Text style={styles.buttonText}>Create New Session</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.sessionButton}
+              onPress={() => navigation.navigate('ListOfSessions')}>
+              <Text style={styles.buttonText}>List Of Sessions</Text>
+            </TouchableOpacity>
+            
+          </View>
+
+          
+        </ScrollView>
         
-      </ScrollView>
-      
-      <Footer></Footer>
+        <Footer></Footer>
 
-    </SafeAreaView>
-  );
+      </SafeAreaView>
+    );
+  }
+  else {
+    return (
+            <SafeAreaView style={{ flex: 1, backgroundColor: "#E0F2F7"}}>
 
+        <Header  style={{ position: "absolute"}}></Header>
+
+        <ScrollView>
+          
+          <View>
+            <Text style={styles.memberName}>Loading...</Text>
+          </View>
+          
+        </ScrollView>
+        
+        <Footer></Footer>
+
+      </SafeAreaView>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
