@@ -33,7 +33,8 @@ function SurfLog() {
     profile = profile.data
 
     //* Create Profile Picture URL based off User ID
-    let profilePicture = "https://theboardclubprofilepictures.s3.us-west-1.amazonaws.com/" + profile._id + ".jpg"
+    //* Added data to end to drive refresh and bypass cache
+    let profilePicture = "https://theboardclubprofilepictures.s3.us-west-1.amazonaws.com/" + profile._id + ".jpg" + '?' + new Date()
     // console.log(profilePicture)
     
     setProfilePictureURL(profilePicture)
@@ -69,6 +70,7 @@ function SurfLog() {
 
           <View>
             <Image
+            key={Date.now()}
             style={styles.memberProfilePicture}
             source={{uri: profilePictureURL }}
             />
