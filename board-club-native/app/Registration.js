@@ -4,6 +4,9 @@ import React from 'react';
 // import CheckBox from '@react-native-community/checkbox';
 import CheckBox from 'react-native-check-box'
 
+//* Auth Import
+import Auth from '../utils/auth';
+
 //* Import Assets
 const boardClubIcon = require('../assets/img/BC_Logo_Clear_1.png')
 
@@ -66,23 +69,28 @@ function Registration( { navigation } ) {
             variables: { ...signUpData },
           });
 
+          console.log(data)
+          console.log(data.createUser.token)
+
           //* Generate New JWT Token
-          // Auth.login(JSON.stringify(data.createUser));
+          Auth.login(data.createUser.token);
+
+          // console.log("Auth Get Token: " + JSON.stringify(Auth.getToken()))
+          // console.log(Auth.getToken())
 
           //* Grab and Decode JWT Token
-          // let jwtToken = Auth.getProfile()
-
-          // console.log("New User ID: " + jwtToken.data._id)
+          let profile = await Auth.getProfile()
+          profile = profile.data
 
           //* Trigger Sever to upload a default User Profile Picture for new Account
-          // const defaultProfileData = await getDefaultProfilePictureUpload({
-          //   variables: { userId: jwtToken.data._id},
-          // });
+          const defaultProfileData = await getDefaultProfilePictureUpload({
+            variables: { userId: profile._id},
+          });
 
           // console.log(defaultProfileData)
           
-          // console.log("Sign-Up Successful!");
-          // navigate("/home")
+          console.log("Sign-Up Successful! / Default Profile Picture Uploaded");
+          navigation.navigate('Home')
 
         } catch (e) {
           // toast.error("Sign-Up Failed", toastOptions);

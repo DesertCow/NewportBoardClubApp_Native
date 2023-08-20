@@ -1,10 +1,15 @@
 import { Text, SafeAreaView, StyleSheet, ScrollView, View, Image, TextInput, TouchableOpacity } from 'react-native';
 import React from 'react';
-import Footer from '../components/common/Footer';
+
+import { useNavigation } from '@react-navigation/native';
 
 //* Components Import
 // import Header from "../components/common/Header";
 import FooterLogin from "../components/common/FooterLogin";
+import Footer from '../components/common/Footer';
+
+//* Auth Import
+import Auth from '../utils/auth';
 
 //* Import Assets
 const boardClubIcon = require('../assets/img/BC_Logo_Clear_1.png')
@@ -13,7 +18,9 @@ const boardClubIcon = require('../assets/img/BC_Logo_Clear_1.png')
 import { LOGIN_M } from '../utils/mutations'
 import { useMutation } from '@apollo/client';
 
-function LoginMain( { navigation } ) {
+function LoginMain() {
+
+  const navigation = useNavigation();
 
   const [loginEmail, setLoginEmail] = React.useState();
   const [loginPassword, setLoginPassword] = React.useState();
@@ -22,9 +29,9 @@ function LoginMain( { navigation } ) {
 
   async function makeLoginRequest(){
 
-    console.log("Make Login Request")
-    console.log("Email: " + loginEmail)
-    console.log("Password: " + loginPassword)
+    // console.log("Make Login Request")
+    // console.log("Email: " + loginEmail)
+    // console.log("Password: " + loginPassword)
 
     const { data } = await login({
       
@@ -34,6 +41,21 @@ function LoginMain( { navigation } ) {
       },
 
     })
+
+    //* Store JWT via Auth
+    await Auth.login(JSON.stringify(data.login.token));
+
+    // console.log("Return Token: " + await Auth.getToken())
+    // let profile = await Auth.getProfile()
+    // profile = profile.data
+    // let temp = await Auth.getToken()
+
+    // console.log("Decoded Token: " + await JSON.stringify(Auth.getProfile()))
+    // console.log("Raw Token: " + temp)
+    // console.log("Decoded Token: " + JSON.stringify(profile))
+    // console.log("ID: " + profile._id)
+
+    navigation.navigate('Home')
 
   }
 
