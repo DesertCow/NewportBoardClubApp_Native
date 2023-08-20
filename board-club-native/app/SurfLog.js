@@ -1,4 +1,4 @@
-import { Text, SafeAreaView, StyleSheet, ScrollView, View, Image, TouchableOpacity } from 'react-native';
+import { Text, SafeAreaView, StyleSheet, ScrollView, View, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 
@@ -20,39 +20,40 @@ function SurfLog() {
 
   const navigation = useNavigation();
 
-  const [profileLoading, setProfileLoading] = React.useState(true);
-  // const [profilePictureURL2, setProfilePictureURL] = React.useState();
-  profilePictureURL = null
+  const [profilePictureURL, setProfilePictureURL] = React.useState(null);
+  const [memberFullName, setMemberFullName] = React.useState(null);
+  
 
   async function loadProfile() {
     
+    //* Grab Decoded Profile
     let profile = await Auth.getProfile()
-    profile = await profile.data
 
-    console.log("ID: " + profile._id)
-    // setProfilePictureURL("https://theboardclubprofilepictures.s3.us-west-1.amazonaws.com/" + profile._id + ".jpg")
-    profilePictureURL = "https://theboardclubprofilepictures.s3.us-west-1.amazonaws.com/" + profile._id + ".jpg"
+    //* Remove Data Wrapper
+    profile = profile.data
 
-    // await console.log(profilePictureURL)
-
+    //* Create Profile Picture URL based off User ID
+    let profilePicture = "https://theboardclubprofilepictures.s3.us-west-1.amazonaws.com/" + profile._id + ".jpg"
+    // console.log(profilePicture)
     
+    setProfilePictureURL(profilePicture)
+    
+    //* Create Full Member Name
+    let memeberName = profile.memberFirstName + " " + profile.memberLastName
+    // console.log(memeberName)
+    
+    setMemberFullName(memeberName)
 
   }
 
-  //* Load Profile Data
-  loadProfile().then(() => {
-    console.log("~~~~~~~THEN STATEMENT~~~~~~~~~")
-    console.log(profilePictureURL)
-    setProfileLoading(false)
-  })
+  //* Load Profile Data/JWT Token
+  loadProfile()
 
-  
-  if(!profileLoading) {
+  // console.log(profilePictureURL)
+  // console.log(memberFullName)
 
-    // console.log("Loading Status = " + profileLoading + "(" + profilePictureURL2 + ")")
-    console.log("Profile Picture URL Loaded!")
-    console.log(profilePictureURL)
-    console.log("Loading Status = " + profileLoading)
+
+  if(profilePictureURL !== null) {
 
     return (
 
@@ -63,14 +64,13 @@ function SurfLog() {
         <ScrollView>
           
           <View>
-            <Text style={styles.memberName}>{MemberName}</Text>
+            <Text style={styles.memberName}>{memberFullName}</Text>
           </View>
 
           <View>
             <Image
             style={styles.memberProfilePicture}
-            source={{uri:"https://theboardclubprofilepictures.s3.us-west-1.amazonaws.com/64e01203d2fa09f5f688184d.jpg" }}
-            // source={{uri: {profilePictureURL} }}
+            source={{uri: profilePictureURL }}
             />
           </View>
 
@@ -125,7 +125,11 @@ function SurfLog() {
     );
   }
   else {
+
+    //* If Data is Loading..
+
     return (
+
             <SafeAreaView style={{ flex: 1, backgroundColor: "#E0F2F7"}}>
 
         <Header  style={{ position: "absolute"}}></Header>
@@ -133,8 +137,55 @@ function SurfLog() {
         <ScrollView>
           
           <View>
-            <Text style={styles.memberName}>Loading...</Text>
+            <Text style={styles.memberName}>{MemberName}</Text>
           </View>
+
+          <View>
+            <ActivityIndicator style={styles.memberProfilePicture} size="large" color="black"/>
+          </View>
+
+          <View>
+            <Text style={styles.surfSessionTitle}>Sessions Stats</Text>
+          </View>
+
+          <View style={styles.sessionStatsBox}>
+            <Text style={styles.sessionData}>
+              Session Count: {SessionCountData}
+            </Text>
+
+            <Text style={styles.sessionData}>
+              Favroite Board: 6'0 DHD Phoenix
+            </Text>
+
+            <Text style={styles.sessionData}>
+              Favroite Surf Spot: 36th ST
+            </Text>
+
+            <Text style={styles.sessionData}>
+              Longest Session: 1:36
+            </Text>
+
+            <Text style={styles.sessionData}>
+              Last Session: 6/12/2023
+            </Text>
+          </View>
+
+          <View style={styles.buttonView}>
+
+            <TouchableOpacity
+              style={styles.sessionButton}
+              onPress={() => navigation.navigate('CreateNewSession')}>
+              <Text style={styles.buttonText}>Create New Session</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.sessionButton}
+              onPress={() => navigation.navigate('ListOfSessions')}>
+              <Text style={styles.buttonText}>List Of Sessions</Text>
+            </TouchableOpacity>
+            
+          </View>
+
           
         </ScrollView>
         

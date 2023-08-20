@@ -7,15 +7,24 @@ class AuthService {
 
   async getProfile() {
 
-    // return await decode(this.getToken());
-    return await decode("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7Im1lbWJlckVtYWlsIjoidGVzdDEyQGdtYWlsLmNvbSIsIm1lbWJlckZpcnN0TmFtZSI6IkNsYXl0b24iLCJtZW1iZXJMYXN0TmFtZSI6IlNrYWdncyIsIl9pZCI6IjY0ZTAxMjAzZDJmYTA5ZjVmNjg4MTg0ZCJ9LCJpYXQiOjE2OTI0MDgyOTAsImV4cCI6MTY5MjQ5NDY5MH0.lzlq-AS4Li6Ao4BOJ5DRsQhsiZZ2Y4LxhUl5KJu5mQs");
+    //* Get JWT Token from SecureStore
+    let token = await SecureStore.getItemAsync('boardClub_JWT_Token')
+
+    //*Decode JWT Token
+    let decoded = await decode(token)
+
+    // console.log("Token = " + token)
+    // console.log("Token Decode = " + JSON.stringify(decoded))
+    
+    return decoded
 
   }
 
-  // async login(value) {
   async login(token) {
-    console.log("Store Token: " + token)
+
+    // console.log("Store Token: " + token)
     await SecureStore.setItemAsync('boardClub_JWT_Token', token);
+
   }
 
   async getToken() {
