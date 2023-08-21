@@ -10,6 +10,11 @@ import Footer from "../components/common/Footer";
 //* Auth Import
 import Auth from '../utils/auth';
 
+//* GraphQL
+import { EMAIL_UPDATE, PASS_UPDATE, NAME_UPDATE } from '../utils/mutations';
+import { getURLupload_Q } from '../utils/queries';
+import { useMutation, useLazyQuery } from '@apollo/client';
+
 
 
 function UserSettings() {
@@ -21,6 +26,17 @@ function UserSettings() {
   const [memberFirstName, setMemberFirstName] = React.useState(null);
   const [memberLastName, setMemberLastName] = React.useState(null);
   const [memberEmail, setMemberEmail] = React.useState(null);
+  const [memberID, setMemberID] = React.useState(null);
+
+  //* Updated User Data
+  const [newPassword, setNewPassword] = React.useState(null);
+  const [newPasswordConfirm, setNewPasswordConfirm] = React.useState(null);
+  const [newEmail, setNewEmail] = React.useState(null);
+
+  //*GraphQL Mutations/Queries
+  const [updatePassMu, { passData }] = useMutation(PASS_UPDATE)
+  const [updateEmailMu, { emailData }] = useMutation(EMAIL_UPDATE)
+  const [updateNameMu, { nameData }] = useMutation(NAME_UPDATE)
 
 
   async function loadProfile() {
@@ -31,9 +47,11 @@ function UserSettings() {
     //* Remove Data Wrapper
     profile = profile.data
 
+    setMemberID(profile._id)
+
     //* Create Profile Picture URL based off User ID
     //* Added data to end to drive refresh and bypass cache
-    let profilePicture = "https://theboardclubprofilepictures.s3.us-west-1.amazonaws.com/" + profile._id + ".jpg" + '?' + new Date()
+    let profilePicture = "https://theboardclubprofilepictures.s3.us-west-1.amazonaws.com/" + memberID + ".jpg" + '?' + new Date()
     // console.log(profilePicture)
     
     setProfilePictureURL(profilePicture)
@@ -42,12 +60,31 @@ function UserSettings() {
     setMemberFirstName(profile.memberFirstName)
     setMemberLastName(profile.memberLastName)
     setMemberEmail(profile.memberEmail)
+    
 
     // console.log("First: " + profile.memberFirstName)
     // console.log("Last: " + profile.memberLastName)
 
   }
 
+  //* Updated User Data
+  const passwordUpdated = (data) => {
+    // console.log(data)
+    setNewPassword(data)
+  };
+
+  const passwordConfirmUpdated = (data) => {
+    // console.log(data)
+    setNewPasswordConfirm(data)
+  };
+
+  const emailUpdated = (data) => {
+    // console.log(data)
+    setNewEmail(data)
+  };
+
+
+  //* Handle User Submit
   function updateProfilePicture() {
 
     console.log("Update Profile Picture")
@@ -60,15 +97,54 @@ function UserSettings() {
 
   }
 
-  function updateEmail() {
+  async function updateEmail() {
 
-    console.log("Update User Email")
+    console.log("Update User Email: " + newEmail )
+    
+    const tokenData = await updateEmailMu({
+      variables: { 
+        id: memberID,
+        memberEmail: newEmail,
+      },
+    });
+
+    //* Generate Updated JWT Token
+    console.log(tokenData.data.updateEmail.token)
+    Auth.login(tokenData.data.updateEmail.token)
+
+    //* Refresh Page to grab updated data from stored JWT token
+    loadProfile()
 
   }
 
-  function updatePassword() {
+  async function updatePassword() {
 
     console.log("Update User Password")
+    console.log(newPassword + " == " +  newPasswordConfirm)
+
+    //* Confirm Passwords Match
+    if(newPassword == newPasswordConfirm){
+
+      console.log("Passwords Match!")
+
+      const tokenData = await updatePassMu({
+        variables: { 
+          id: memberID,
+          password: newPassword,
+        },
+      });
+
+      //* Generate Updated JWT Token
+      console.log(tokenData.data.updatePassword.token)
+      // Auth.login(JSON.stringify(tokenData.data.updatePassword.token));
+      Auth.login(tokenData.data.updatePassword.token);
+
+      //* Refresh Page to grab updated data from stored JWT token
+      // window.location.reload(false);
+      loadProfile()
+
+    }
+
 
   }
 
@@ -81,6 +157,7 @@ function UserSettings() {
   //* Load Profile Data/JWT Token
   loadProfile()
 
+  //* Confirm Profile Data has loaded
   if(profilePictureURL !== null) {
 
     // console.log(memberFirstName)
@@ -105,6 +182,7 @@ function UserSettings() {
               style={styles.memberProfilePicture}
               source={{uri: profilePictureURL }}
               />
+
 
 
 
@@ -152,7 +230,7 @@ function UserSettings() {
                 name="memberFirstName"
                 placeholder={memberEmail}
                 inputMode="email"
-                // onChangeText={(data) => registrationDataUpdated(data,"memberFirstName")}
+                onChangeText={(data) => emailUpdated(data)}
               />
 
               <TouchableOpacity
@@ -172,16 +250,16 @@ function UserSettings() {
                 placeholder="Password"
                 inputMode="text"
                 secureTextEntry={true}
-                // onChangeText={(data) => registrationDataUpdated(data,"memberFirstName")}
+                onChangeText={(data) => passwordUpdated(data)}
               />
 
               <Text style={styles.welcomeText}>Password Confirm</Text>
               <TextInput
                 style={styles.nameInput}
-                // onChangeText={(data) => registrationDataUpdated(data,"memberLastName")}
                 placeholder="Password"
                 inputMode="text"
                 secureTextEntry={true}
+                onChangeText={(data) => passwordConfirmUpdated(data)}
               />
 
               <TouchableOpacity
