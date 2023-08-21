@@ -20,6 +20,7 @@ import * as DocumentPicker from 'expo-document-picker';
 
 
 
+
 function UserSettings() {
 
   const navigation = useNavigation();
@@ -60,8 +61,117 @@ function UserSettings() {
     let newProfilePicture = await DocumentPicker.getDocumentAsync({type: 'image/jpeg'})
     // let newProfilePicture = await DocumentPicker.getDocumentAsync()
 
-    setUploadFile(newProfilePicture)
-    console.log(newProfilePicture)
+    setUploadFile(newProfilePicture.assets[0])
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    // console.log(newProfilePicture)
+    console.log(uploadFile)
+  }
+
+  const getBlob = async (fileUri) => {
+
+    console.log("***********************************")
+    console.log("***********************************")
+    // fileUri = fileUri.replace('file:///', 'file:/')
+    fileUri = fileUri.replace('file:///', '')
+    // fileUri = fileUri.replace('file', '!!!!!')
+    console.log(fileUri)
+
+    const response = await fetch(fileUri);
+
+    console.log(response)
+
+    // const imageBody = await resp.blob();
+    // return imageBody;
+  };
+
+  const uploadImage = async (uploadUrl, data) => {
+
+    console.log("***********************************")
+    console.log(uploadUrl)
+    console.log(data)
+
+    const imageBody = await getBlob(data);
+
+    // return fetch(uploadUrl, {
+    // await fetch(uploadUrl, {
+    //   method: "PUT",
+    //   body: imageBody,
+    //   headers: {
+    //     "Content-Type": "image/jpeg",
+    //   },
+
+    // });
+  };
+
+  async function updateProfilePicture() {
+
+    console.log("Update Profile Picture")
+
+      //* Request secure URL for upload from AWS/S3 via graphQL
+      const URLdata = await getSecureURLQ({
+        variables: { userId: memberID},
+      });
+
+      // console.log("Secure URL: " + JSON.stringify(URLdata))
+      console.log("Secure URL: ")
+      console.log(URLdata.data.uploadUserProfilePicture.secureUploadURL)
+      // console.log("Raw File URI")
+      // console.log(uploadFile.assets.uri)
+
+      if (uploadFile != null) {
+
+        console.log("$$$$$$$$$$$$$$$$$$$$$$")
+        console.log(uploadFile)
+        // console.log(uploadFile.assets)
+        console.log("&&&&&&&&&&&&&&&&&&&&&&")
+        uploadFile.uri = uploadFile.uri.replace('file://', '')
+        console.log(uploadFile.uri)
+        console.log(uploadFile.name)
+        console.log(uploadFile.mimeType)
+        console.log(memberID + ".jpg")
+
+        let picture = await fetch(uploadFile.uri);
+
+      // uploadImage(URLdata.data.uploadUserProfilePicture.secureUploadURL,uploadFile.uri)
+
+        // If file selected then create FormData
+        // const data = new FormData();
+
+        // await data.append('file_attachment', {
+        //   uri: uploadFile.uri,
+        //   name: uploadFile.name,
+        //   // name: memberID + ".jpg",
+        //   type: uploadFile.mimeType,
+        // });
+
+        // console.log(data)
+        // console.log(data._parts[0][1])
+
+        //* Use parsed/clean URL to submit PUT request to S3 server
+        // const response = await fetch(
+        //   URLdata.data.uploadUserProfilePicture.secureUploadURL,
+        //   {
+        //     method: 'PUT',
+        //     // body: uploadFile,
+        //     body: data,
+        //     headers: {
+        //       "Content-Type": "image/jpeg",
+        //     },
+        //   }
+        // )
+
+        // console.log(response)
+        // //* After Fetch is complete reload page to display new user Profile Picture
+        // if(response.status == 200){
+        //   // window.location.reload(false);
+        //   loadProfile()
+        // }
+        // else{
+        //   //TODO: Add error handling for failed upload!
+        // }
+
+      }
+
   }
 
   async function loadProfile() {
@@ -118,58 +228,7 @@ function UserSettings() {
 
 
   //* Handle User Submit
-  async function updateProfilePicture() {
 
-    console.log("Update Profile Picture")
-
-      //* Request secure URL for upload from AWS/S3 via graphQL
-      const URLdata = await getSecureURLQ({
-        variables: { userId: memberID},
-      });
-
-      // console.log("Secure URL: " + JSON.stringify(URLdata))
-      console.log("Secure URL: ")
-      console.log(URLdata.data.uploadUserProfilePicture.secureUploadURL)
-      console.log("Raw File")
-      console.log(uploadFile)
-
-      if (uploadFile != null) {
-        // If file selected then create FormData
-        const data = new FormData();
-
-        data.append('file_attachment', {
-          uri: uploadFile.uri,
-          name: uploadFile.name,
-          // name: memberID + ".jpg",
-          type: uploadFile.mimeType,
-        });
-
-        //* Use parsed/clean URL to submit PUT request to S3 server
-        const response = await fetch(
-          URLdata.data.uploadUserProfilePicture.secureUploadURL,
-          {
-            method: 'PUT',
-            body: uploadFile,
-            // body: data,
-            headers: {
-              "Content-Type": "image/jpeg",
-            },
-          }
-        )
-
-        console.log(response)
-        //* After Fetch is complete reload page to display new user Profile Picture
-        if(response.status == 200){
-          // window.location.reload(false);
-          loadProfile()
-        }
-        else{
-          //TODO: Add error handling for failed upload!
-        }
-
-      }
-
-  }
 
   async function updateName() {
 
