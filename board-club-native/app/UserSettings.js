@@ -32,6 +32,7 @@ function UserSettings() {
   const [newPassword, setNewPassword] = React.useState(null);
   const [newPasswordConfirm, setNewPasswordConfirm] = React.useState(null);
   const [newEmail, setNewEmail] = React.useState(null);
+  const [newName, setNewName] = React.useState({ firstName: "", lastName: ""});
 
   //*GraphQL Mutations/Queries
   const [updatePassMu, { passData }] = useMutation(PASS_UPDATE)
@@ -55,19 +56,27 @@ function UserSettings() {
     // console.log(profilePicture)
     
     setProfilePictureURL(profilePicture)
-    
+    setMemberEmail(profile.memberEmail)
 
     setMemberFirstName(profile.memberFirstName)
     setMemberLastName(profile.memberLastName)
-    setMemberEmail(profile.memberEmail)
-    
 
-    // console.log("First: " + profile.memberFirstName)
-    // console.log("Last: " + profile.memberLastName)
+    //* Set New First/Last name to existing one incase only one is updated...
+    // setNewName({...newName, firstName: memberFirstName, lastName: memberLastName })
 
   }
 
   //* Updated User Data
+  const firstNameUpdated = (data) => {
+    // console.log(data)
+    setNewName({...newName, firstName: data})
+  };
+
+  const lastNameUpdated = (data) => {
+    // console.log(data)
+    setNewName({...newName, lastName: data})
+  };
+
   const passwordUpdated = (data) => {
     // console.log(data)
     setNewPassword(data)
@@ -91,10 +100,34 @@ function UserSettings() {
 
   }
 
-  function updateName() {
+  async function updateName() {
 
-    console.log("Update User First/Last Name")
+    // console.log("Update User First/Last Name")
 
+    console.log("New First Name: " + newName.firstName)
+    console.log("New Last Name: " + newName.lastName)
+
+    if(newName.firstName != "" && newName.lastName != "") {
+
+      const tokenData = await updateNameMu({
+        variables: { 
+          id: memberID,
+          memberFirstName: newName.firstName,
+          memberLastName: newName.lastName,
+        },
+      });
+
+      //* Generate Updated JWT Token
+      Auth.login(tokenData.data.updateName.token)
+
+      //* Refresh Page to grab updated data from stored JWT token
+      loadProfile()
+    }
+    else {
+      
+      //TODO: Add Popup Warning / Error!
+      console.log("ERROR: Please provide a First and Last name!")
+    }
   }
 
   async function updateEmail() {
@@ -109,7 +142,7 @@ function UserSettings() {
     });
 
     //* Generate Updated JWT Token
-    console.log(tokenData.data.updateEmail.token)
+    // console.log(tokenData.data.updateEmail.token)
     Auth.login(tokenData.data.updateEmail.token)
 
     //* Refresh Page to grab updated data from stored JWT token
@@ -204,12 +237,12 @@ function UserSettings() {
                 name="memberFirstName"
                 placeholder={memberFirstName}
                 inputMode="text"
-                // onChangeText={(data) => registrationDataUpdated(data,"memberFirstName")}
+                onChangeText={(data) => firstNameUpdated(data)}
               />
 
               <TextInput
                 style={styles.nameInput}
-                // onChangeText={(data) => registrationDataUpdated(data,"memberLastName")}
+                onChangeText={(data) => lastNameUpdated(data)}
                 placeholder={memberLastName}
                 inputMode="text"
               />
