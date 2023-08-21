@@ -15,6 +15,9 @@ import { EMAIL_UPDATE, PASS_UPDATE, NAME_UPDATE } from '../utils/mutations';
 import { getURLupload_Q } from '../utils/queries';
 import { useMutation, useLazyQuery } from '@apollo/client';
 
+//* Document Picker
+import * as DocumentPicker from 'expo-document-picker';
+
 
 
 function UserSettings() {
@@ -38,7 +41,28 @@ function UserSettings() {
   const [updatePassMu, { passData }] = useMutation(PASS_UPDATE)
   const [updateEmailMu, { emailData }] = useMutation(EMAIL_UPDATE)
   const [updateNameMu, { nameData }] = useMutation(NAME_UPDATE)
+  const [getSecureURLQ, { secureURLdata } ] = useLazyQuery(getURLupload_Q);
 
+
+  // //* Upload File
+  const [uploadFile, setUploadFile] = React.useState();
+
+
+  // //* Handles Upload File
+  //   const fileChangeHandler = (event) => {
+  //     setSelectedFile(event.target.files[0]);
+  //     // setIsSelected(true);
+  //   };
+
+  async function chooseFile() {
+
+    // Ask User To Select New Profile Picture
+    let newProfilePicture = await DocumentPicker.getDocumentAsync({type: 'image/jpeg'})
+    // let newProfilePicture = await DocumentPicker.getDocumentAsync()
+
+    setUploadFile(newProfilePicture)
+    console.log(newProfilePicture)
+  }
 
   async function loadProfile() {
     
@@ -94,9 +118,54 @@ function UserSettings() {
 
 
   //* Handle User Submit
-  function updateProfilePicture() {
+  async function updateProfilePicture() {
 
     console.log("Update Profile Picture")
+
+      //* Request secure URL for upload from AWS/S3 via graphQL
+      const URLdata = await getSecureURLQ({
+        variables: { userId: memberID},
+      });
+
+      // console.log("Secure URL: " + JSON.stringify(URLdata))
+      console.log("Secure URL: ")
+      console.log(URLdata.data.uploadUserProfilePicture.secureUploadURL)
+
+      if (uploadFile != null) {
+        // If file selected then create FormData
+        const data = new FormData();
+
+        data.append('file_attachment', {
+          uri: uploadFile.uri,
+          name: uploadFile.name,
+          // name: memberID + ".jpg",
+          type: uploadFile.mimeType,
+        });
+
+        //* Use parsed/clean URL to submit PUT request to S3 server
+        const response = await fetch(
+          URLdata.data.uploadUserProfilePicture.secureUploadURL,
+          {
+            method: 'PUT',
+            body: uploadFile,
+            // body: data,
+            headers: {
+              "Content-Type": "image/jpeg",
+            },
+          }
+        )
+
+        console.log(response)
+        //* After Fetch is complete reload page to display new user Profile Picture
+        if(response.status == 200){
+          // window.location.reload(false);
+          loadProfile()
+        }
+        else{
+          //TODO: Add error handling for failed upload!
+        }
+
+      }
 
   }
 
@@ -120,7 +189,7 @@ function UserSettings() {
 
       //* Refresh Page to grab updated data from stored JWT token
       loadProfile()
-      
+
     }
     else {
 
@@ -218,9 +287,12 @@ function UserSettings() {
               style={styles.memberProfilePicture}
               source={{uri: profilePictureURL }}
               />
-
-
-
+              
+              <TouchableOpacity
+                style={styles.updateButton}
+                onPress={() => chooseFile()}>
+                <Text style={styles.buttonText}>Choose File</Text>
+              </TouchableOpacity>
 
               <TouchableOpacity
                 style={styles.updateButton}
