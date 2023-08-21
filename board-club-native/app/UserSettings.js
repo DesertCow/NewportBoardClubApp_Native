@@ -371,6 +371,7 @@ function UserSettings() {
               </TouchableOpacity>
 
               <TouchableOpacity
+                disabled={true}
                 style={styles.updateButton}
                 onPress={() => updateProfilePicture()}>
                 <Text style={styles.buttonText}>Upload</Text>
