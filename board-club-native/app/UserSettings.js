@@ -102,10 +102,8 @@ function UserSettings() {
 
   async function updateName() {
 
-    // console.log("Update User First/Last Name")
-
-    console.log("New First Name: " + newName.firstName)
-    console.log("New Last Name: " + newName.lastName)
+    // console.log("New First Name: " + newName.firstName)
+    // console.log("New Last Name: " + newName.lastName)
 
     if(newName.firstName != "" && newName.lastName != "") {
 
@@ -122,9 +120,10 @@ function UserSettings() {
 
       //* Refresh Page to grab updated data from stored JWT token
       loadProfile()
+      
     }
     else {
-      
+
       //TODO: Add Popup Warning / Error!
       console.log("ERROR: Please provide a First and Last name!")
     }
@@ -177,13 +176,17 @@ function UserSettings() {
       loadProfile()
 
     }
-
-
   }
 
   function logout() {
 
-    console.log("Logout!")
+    // console.log("Logout!")
+
+
+    //TODO: Add Popup to confirm you want to log out!
+    Auth.logout()
+
+    navigation.navigate('Login')
 
   }
 
