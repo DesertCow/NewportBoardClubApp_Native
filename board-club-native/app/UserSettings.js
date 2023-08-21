@@ -130,6 +130,8 @@ function UserSettings() {
       // console.log("Secure URL: " + JSON.stringify(URLdata))
       console.log("Secure URL: ")
       console.log(URLdata.data.uploadUserProfilePicture.secureUploadURL)
+      console.log("Raw File")
+      console.log(uploadFile)
 
       if (uploadFile != null) {
         // If file selected then create FormData
