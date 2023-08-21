@@ -8,7 +8,7 @@ class AuthService {
   async getProfile() {
 
     //* Get JWT Token from SecureStore
-    let token = await SecureStore.getItemAsync('boardClub_JWT_Token')
+    let token = await SecureStore.getItemAsync("boardClub_JWT_Token")
 
     //*Decode JWT Token
     let decoded = await decode(token)
@@ -23,13 +23,13 @@ class AuthService {
   async login(token) {
 
     // console.log("Store Token: " + token)
-    await SecureStore.setItemAsync('boardClub_JWT_Token', token);
+    await SecureStore.setItemAsync("boardClub_JWT_Token", token);
 
   }
 
   async getToken() {
 
-    let returnToken = await SecureStore.getItemAsync('boardClub_JWT_Token');
+    let returnToken = await SecureStore.getItemAsync("boardClub_JWT_Token");
     
     if(returnToken){
       // console.log("Retrived Token: " + returnToken)
@@ -38,6 +38,11 @@ class AuthService {
     else{
       console.log("No Data Found!")
     } 
+  }
+
+  async logout() {
+
+    await SecureStore.deleteItemAsync("boardClub_JWT_Token")
   }
   
 }

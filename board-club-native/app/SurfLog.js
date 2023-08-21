@@ -10,9 +10,8 @@ import Footer from "../components/common/Footer";
 import Auth from '../utils/auth';
 
 
-const MemberName = "Clayton Skaggs"
+//* Place Holder Data
 const SessionCountData = 3;
-
 
 
 
@@ -70,7 +69,6 @@ function SurfLog() {
 
           <View>
             <Image
-            key={Date.now()}
             style={styles.memberProfilePicture}
             source={{uri: profilePictureURL }}
             />
@@ -139,7 +137,7 @@ function SurfLog() {
         <ScrollView>
           
           <View>
-            <Text style={styles.memberName}>{MemberName}</Text>
+            {/* <Text style={styles.memberName}>{MemberName}</Text> */}
           </View>
 
           <View>
