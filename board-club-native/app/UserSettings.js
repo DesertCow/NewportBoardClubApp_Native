@@ -103,9 +103,23 @@ function UserSettings() {
     // });
   };
 
+
   async function updateProfilePicture() {
 
     console.log("Update Profile Picture")
+
+    // const blob = await new Promise((resolve, reject) => {
+    //   const xhr = new XMLHttpRequest();
+    //   xhr.onload = function() {
+    //     resolve(xhr.response);
+    //   };
+    //   xhr.onerror = function() {
+    //     reject(new TypeError('Network request failed'));
+    //   };
+    //   xhr.responseType = 'blob';
+    //   xhr.open('GET', uri, true);
+    //   xhr.send(null);
+    // });
 
       //* Request secure URL for upload from AWS/S3 via graphQL
       const URLdata = await getSecureURLQ({
@@ -124,13 +138,14 @@ function UserSettings() {
         console.log(uploadFile)
         // console.log(uploadFile.assets)
         console.log("&&&&&&&&&&&&&&&&&&&&&&")
-        uploadFile.uri = uploadFile.uri.replace('file://', '')
+        uploadFile.uri = uploadFile.uri.replace('file:///', '')
         console.log(uploadFile.uri)
         console.log(uploadFile.name)
         console.log(uploadFile.mimeType)
         console.log(memberID + ".jpg")
 
         let picture = await fetch(uploadFile.uri);
+        console.log(picture)
 
       // uploadImage(URLdata.data.uploadUserProfilePicture.secureUploadURL,uploadFile.uri)
 
