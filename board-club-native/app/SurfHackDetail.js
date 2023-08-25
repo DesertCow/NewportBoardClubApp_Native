@@ -1,4 +1,5 @@
-import { Text, SafeAreaView, StyleSheet, ScrollView, Image } from 'react-native';
+import { Text, SafeAreaView, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 //* GraphQL
 import { getSurfHack_Q } from '../utils/queries';
@@ -10,6 +11,7 @@ import Footer from "../components/common/Footer";
 
 function SurfHackDetail( nav ) {
 
+  const navigation = useNavigation();
 
   const surfHackID = nav.route.params.HackID;
 
@@ -39,6 +41,15 @@ function SurfHackDetail( nav ) {
             source={{uri: hackData.hackPhotoURL}}
           />
 
+
+
+
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('SurfHacks')}>
+            <Text style={styles.buttonText}>Surf Hack Home</Text>
+          </TouchableOpacity>
+
         </ScrollView>
         
         <Footer></Footer>
@@ -66,6 +77,24 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 20,
   },
-
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#474747',
+    color: "white",
+    height: 80,
+    width: "85%",
+    marginTop: 40,
+    justifyContent: 'center',
+    borderRadius: 20,
+    alignSelf: 'center',
+  },
+  buttonText: {
+    fontSize: 25,
+    // fontWeight: 700,
+    fontWeight: 'bold',
+    alignItems: 'center',
+    color: "#FFFFFF",
+    justifyContent: 'center',
+  },
 })
 export default SurfHackDetail;

@@ -1,4 +1,5 @@
-import { Text, SafeAreaView, StyleSheet, ScrollView, Image } from 'react-native';
+import { Text, SafeAreaView, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 //* GraphQL
 import { getEvent_Q } from '../utils/queries';
@@ -9,6 +10,8 @@ import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 
 function EventDetail(nav) {
+
+  const navigation = useNavigation();
 
   const eventID = nav.route.params.EventID;
 
@@ -43,6 +46,13 @@ function EventDetail(nav) {
           <Text style={styles.eventDateText}>{eventData.eventSlogan}</Text>
           <Text style={styles.eventDateText}>{eventData.eventDate}</Text>
 
+
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate('ClubEvents')}>
+            <Text style={styles.buttonText}>Club Events Home</Text>
+          </TouchableOpacity>
+
         </ScrollView>
         
         <Footer></Footer>
@@ -72,6 +82,25 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: 'center',
     marginBottom: 20,
+  },
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#474747',
+    color: "white",
+    height: 80,
+    width: "85%",
+    marginTop: 40,
+    justifyContent: 'center',
+    borderRadius: 20,
+    alignSelf: 'center',
+  },
+  buttonText: {
+    fontSize: 25,
+    // fontWeight: 700,
+    fontWeight: 'bold',
+    alignItems: 'center',
+    color: "#FFFFFF",
+    justifyContent: 'center',
   },
 
 })
