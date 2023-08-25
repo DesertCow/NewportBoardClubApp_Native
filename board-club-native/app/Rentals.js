@@ -1,8 +1,11 @@
-import { Text, SafeAreaView, StyleSheet, ScrollView, View } from 'react-native';
+import { Text, SafeAreaView, StyleSheet, ScrollView, View, Image } from 'react-native';
 
 //* Components Import
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
+
+//*Import Assets
+const NBC_Rental_Rates = require('../assets/img/NBC_Rental_Rates_Small.png')
 
 
 
@@ -29,9 +32,15 @@ function Rentals( { navigation } ) {
 
         <View style={styles.rentalPriceContainer}>
 
-          <View style={ styles.rentalRow}>
+          <Image
+            style={styles.RentalRates}
+            source={NBC_Rental_Rates}
+          />
+        </View>
+
+          {/* <View style={ styles.rentalRow}>
             <View>
-              <Text style={ styles.rentalText}>                   </Text>
+              <Text style={ styles.rentalText}></Text>
             </View>
             <View>
               <Text style={ styles.rentalText}>4hrs</Text>
@@ -120,8 +129,8 @@ function Rentals( { navigation } ) {
           </View>
           <View style={ styles.rentalRow}>
 
-          </View>
-        </View>
+          </View> */}
+        
 
         <View style={styles.questionsBox}>
           <Text style={styles.questionsBoxText}>Any Questions? Give Us A Call</Text>
@@ -178,7 +187,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column', 
     flex: 1,
     width: "90%",
-    height: 120,
+    // height: 120,
     borderStyle: "solid",
     borderWidth: 5,
     marginTop: 50,
@@ -220,7 +229,15 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 20,
     fontWeight: 'bold',
-  }
+  },
+    RentalRates: {
+    // height: 250,
+    width: 350,
+    resizeMode: 'contain',
+    // width: "90%",
+    // marginTop: Platform.OS === 'android' ? 70 : 30,
+    alignSelf: 'center'
+  },
 });
 
 export default Rentals;
