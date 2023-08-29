@@ -100,13 +100,13 @@ function ListOfSession() {
   //* Request Surf Session data from Database
   async function loadSurfSessionData() {
 
-    let profile = null
-    // profile = await loadProfile()
+    // let profile = null
+    // profile = await Auth.getProfile()
 
-    console.log("PROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
+    // console.log("PROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
     // console.log(profile)
 
-    // if(profile != null) {
+    // if(profile !== null) {
       // //* Get List of surf sessions for user from Database
       var { loading, data } = useQuery(getSurfSessionList_Q, {
         // variables: { userId: profile._id },
@@ -115,9 +115,6 @@ function ListOfSession() {
 
       return data
     // }
-
-    // return undefined
-
   }
 
   // //* Get List of surf sessions for user from Database
