@@ -20,72 +20,36 @@ import Auth from '../utils/auth';
 function ListOfSession() {
 
   const navigation = useNavigation();
-  const [profileData, setProfileData] = React.useState(null);
-  // const [surfSessionData2, setSurfSessionData2] = React.useState([]);
 
   var surfSessionListView = []
   var tempID = "64e27081d2fa09f5f6881882"
-  // var tempID = "64e27081d2fa09f5f6881865"
 
-  // console.log("!!!!!!!!!!!!!!!!!!!!!!!")
-  // console.log(finalSurfHackListView)
 
-  
-  
   const displaySurfSessionDetails = async (event, reqSurfSessionID) => {
   
-    navigation.navigate('SurfHackDetail', {
+    navigation.navigate('SurfSessionDetail', {
       SurfSessionID: reqSurfSessionID
     });
 
   };
 
-  async function loadProfile() {
+  // async function loadProfile() {
     
-    //* Grab Decoded Profile
-    let profile = await Auth.getProfile()
-    // profile = profile.data
+  //   //* Grab Decoded Profile
+  //   let profile = await Auth.getProfile()
 
-    // setProfileData(profile.data)
+  //   return profile
 
-    // console.log("Profile = ")
-    // console.log(profile)
-
-    // if(!loading) {
-
-    //   console.log("111LOADING = ")
-    //   console.log(loading)
-    //   console.log("Data = ")
-    //   console.log(data)
-    //   setSurfSessionData(data)
-
-
-    //   return data
-    // }
-
-    // return loading
-    return profile
-
-  }
+  // }
 
   //* Build Buttons Based on Surf Session data from Database
   async function buildSurfSessionView(sessionData) {
 
-    console.log("*****************************************")
-    console.log(sessionData)
-    
-    //* Generate IMG and Button for each event
+    //* Generate Button for each surf session
       surfSessionListView.push(
 
       <View key={sessionData._id}>
         
-        {/* <Text style={styles.sessionTitleText}>{sessionData.hackTitle}</Text> */}
-
-        {/* <Image
-        style={styles.hackPicture}
-        source={{uri: surfHackData.hackPhotoURL}}
-        /> */}
-
         <TouchableOpacity
           style={styles.sessionButton}
           // backgroundColor={switchColor}
@@ -100,33 +64,14 @@ function ListOfSession() {
   //* Request Surf Session data from Database
   async function loadSurfSessionData() {
 
-    // let profile = null
-    // profile = await Auth.getProfile()
+    //* Get List of surf sessions for user from Database
+    var { loading, data } = useQuery(getSurfSessionList_Q, {
+      // variables: { userId: profile._id },
+      variables: { userId: tempID },
+    });
 
-    // console.log("PROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
-    // console.log(profile)
-
-    // if(profile !== null) {
-      // //* Get List of surf sessions for user from Database
-      var { loading, data } = useQuery(getSurfSessionList_Q, {
-        // variables: { userId: profile._id },
-        variables: { userId: tempID },
-      });
-
-      return data
-    // }
+    return data
   }
-
-  // //* Get List of surf sessions for user from Database
-  // var { loading, data } = useQuery(getSurfSessionList_Q, {
-  //   variables: { userId: profile._id },
-  // });
-
-
-  // let loadStatus = loadSurfSessionData()
-
-  //* Load Profile Data/JWT Token
-  // loadProfile()
 
   //* Load Surf Session Data from DB
   let surfSessionData = loadSurfSessionData()
@@ -139,37 +84,9 @@ function ListOfSession() {
 
     //* Check to confirm session Data exists
     if(surfSessionData.length > 0)
-    // if(false)
     {
-      // console.log("Profile Data Valid!")
-      // console.log(profileData)
 
-      // surfSessionData = surfSessionData.getAllUsersSurfSession
-
-      console.log("%%%%%%%%%%%%%%%%%%%%%")
-      console.log(surfSessionData)
-      console.log(surfSessionData[0]._id)
-      console.log(surfSessionData[1]._id)
-      console.log(surfSessionData[2]._id)
-
-      // profile = profileData
-
-
-
-      // let loading = true
-
-      //* Get List of surf sessions for user from Database
-      // var { loading, data } = useQuery(getSurfSessionList_Q, {
-      //   // variables: { userId: loadProfile()._id },
-      //   variables: { userId: profileData._id },
-      // });
-
-      // if(!loading) {
-
-        // console.log(loading)
-        // console.log(data)
-
-      // populateListOfSessions(surfSessionData)
+      //* Build List of buttons from surfsession Data
       surfSessionData.forEach(buildSurfSessionView)
 
       return (

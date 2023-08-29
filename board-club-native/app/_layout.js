@@ -15,6 +15,7 @@ import HomeScreen from './Home';
 import ClubEvents from './ClubEvents';
 import EventDetail from './EventDetail';
 import SurfLog from './SurfLog';
+import SurfSessionDetail from './SurfSessionDetail'
 import SurfHacks from './SurfHacks';
 import SurfHackDetail from "./SurfHackDetail";
 import NewportSurfMap from './NewportSurfMap';
@@ -66,6 +67,7 @@ export default function App() {
         <Stack.Screen name="ClubEvents" component={ClubEvents} />
         <Stack.Screen name="EventDetail" component={EventDetail} />
         <Stack.Screen name="SurfLog" component={SurfLog} />
+        <Stack.Screen name="SurfSessionDetail" component={SurfSessionDetail} />
         <Stack.Screen name="SurfHacks" component={SurfHacks} />
         <Stack.Screen name="SurfHackDetail" component={SurfHackDetail} />
         <Stack.Screen name="NewportSurfMap" component={NewportSurfMap} />
