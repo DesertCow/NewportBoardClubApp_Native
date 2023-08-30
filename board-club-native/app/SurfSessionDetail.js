@@ -17,7 +17,7 @@ function EventDetail(nav) {
 
   const SurfSessionID = nav.route.params.SurfSessionID;
 
-  console.log("Surf Session ID: " + SurfSessionID)
+  // console.log("Surf Session ID: " + SurfSessionID)
 
 
   const deleteSurfSessionRequest = async (event, reqSurfSessionID) => {
@@ -26,7 +26,16 @@ function EventDetail(nav) {
     //   SurfSessionID: reqSurfSessionID
     // });
     
-    console.log("Delete Session: " + reqSurfSessionID)
+    // console.log("Delete Session: " + reqSurfSessionID)
+
+    const { surfSessionData } = await deleteSurfSession({
+
+      variables: { 
+        sessionId: reqSurfSessionID
+      },
+    });
+
+    navigation.navigate('ListOfSessions')
 
   };
 

@@ -56,14 +56,14 @@ function HomeScreen( { navigation } ) {
 
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate('Login')}>
-            <Text style={styles.buttonText}>Login</Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity
-            style={styles.buttonBottom}
             onPress={() => navigation.navigate('About')}>
             <Text style={styles.buttonText}>About</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.buttonBottom}
+            onPress={() => navigation.navigate('Login')}>
+            <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
 
 
