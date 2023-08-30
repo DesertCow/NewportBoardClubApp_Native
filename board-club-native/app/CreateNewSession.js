@@ -47,9 +47,7 @@ function CreateNewSession( { navigation } ) {
 
   async function submitNewSession() {
 
-    console.log("Submit New Surf Session!")
-    console.log(dateData)
-    console.log(timeData)
+    // console.log("Submit New Surf Session!")
 
       const { surfSessionData } = await createSurfSession({
 
@@ -90,7 +88,7 @@ function CreateNewSession( { navigation } ) {
 
       {/* <ScrollView style={{ flex: 1, flexDirection: 'row', alignSelf: 'center'}}> */}
       <ScrollView>
-        {/* <Text>Create New Surf Session</Text> */}
+        <Text style={styles.createNewSurfSessionTitle}>Create New Surf Session</Text>
 
         <View style={styles.userInputBox1}>
           <Text style={styles.userInputTitle}>Date:</Text>
@@ -221,10 +219,9 @@ function CreateNewSession( { navigation } ) {
         </View>
 
         <View style={styles.tideDropDownBox}>
-          <View style={styles.sideBySide}>
+          <Text style={styles.dropdownBoxTitleSession}>Session Length (H:MM)</Text>
+          <View style={styles.sideBySideCenter}>
 
-          
-            <Text style={styles.dropdownBoxTitle}>Session Length (H:MM)</Text>
             <Picker
               style={styles.picker}
               selectedValue={sessionLengthHours}
@@ -256,7 +253,7 @@ function CreateNewSession( { navigation } ) {
               <Picker.Item label="50" value="50" />
               <Picker.Item label="55" value="55" />
             </Picker>
-            </View>
+          </View>
         </View>
 
         <View style={styles.surfBoardInfo}>
@@ -280,7 +277,7 @@ function CreateNewSession( { navigation } ) {
           </View>
 
           <View style={styles.sideBySide}>
-            <Text style={styles.dropdownBoxTitle}>Model:</Text>
+            <Text style={styles.dropdownBoxTitle}>Model:  </Text>
             <TextInput
               style={styles.userInput}
               onChangeText={setModel}
@@ -400,7 +397,7 @@ function CreateNewSession( { navigation } ) {
         </View>
           
         <View style={styles.sessionNotes}>
-          <Text style={styles.dropdownBoxTitle}>Session Notes:</Text>
+          <Text style={styles.sessionNotesTitle}>Session Notes:</Text>
            <TextInput
             style={styles.sessionNotesInput}
             onChangeText={setSessionNotes}
@@ -410,9 +407,7 @@ function CreateNewSession( { navigation } ) {
             defaultValue=''
             inputMode="text"
           />
-        </View>
-
-        <View style={styles.userInputBox1}>
+          <View style={styles.sessionRatingBox}>
           <Text style={styles.dropdownBoxTitle}>Session Rating</Text>
           <Picker
             style={styles.picker}
@@ -427,7 +422,10 @@ function CreateNewSession( { navigation } ) {
             <Picker.Item label="4" value="4"/>
             <Picker.Item label="5" value="5"/>
           </Picker>            
+        </View>        
         </View>
+
+
 
         <View style={styles.saveResetButtonsBox}>
 
@@ -466,6 +464,19 @@ const styles = StyleSheet.create({
     maxHeight: 75,
     flexDirection: 'row',
     flex: 1,
+    // textAlign: "center",
+    justifyContent: 'flex-end',
+    // alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  sessionRatingBox: {
+    // borderStyle: "solid",
+    // borderWidth: 5,
+    // width: "100%", 
+    // maxHeight: 75,
+    flexDirection: 'row',
+    flex: 1,
     textAlign: "center",
     justifyContent: 'center',
     alignItems: 'center',
@@ -479,21 +490,45 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     // alignItems: 'center',
   },
+  createNewSurfSessionTitle: {
+    fontWeight: 'bold',
+    fontSize: 30,
+    paddingRight: 10,
+    alignSelf: 'center',
+    paddingVertical: 10,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+  },
   userInput: {
     width: "70%",
     fontSize: 20,
     height: 40,
     borderStyle: "solid",
     borderWidth: 5,
-    padding: 5,
+    paddingLeft: 10,
     // marginVertical: Platform.OS === 'android' ? 10 : 5,
   },
   dropdownBoxTitle: {
     fontWeight: 'bold',
     fontSize: 20,
-    paddingRight: 10,
+    paddingLeft: 15,
     textAlign: "center",
-    paddingTop: Platform.OS === 'android' ? 20 : 0,
+    // paddingTop: Platform.OS === 'android' ? 0 : 0,
+  },
+  dropdownBoxTitleSession: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    paddingLeft: 15,
+    textAlign: "center",
+    paddingTop: Platform.OS === 'android' ? 10 : 0,
+  },
+  sessionNotesTitle: {
+    fontWeight: 'bold',
+    fontSize: 25,
+    paddingLeft: 15,
+    textAlign: "center",
+    // paddingTop: Platform.OS === 'android' ? 10 : 0,
+    paddingVertical: 5,
   },
   dropDownBox: {
     borderStyle: "solid",
@@ -503,12 +538,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flex: 1,
     textAlign: "center",
-    justifyContent: 'center',
+    justifyContent: 'left',
     alignItems: 'center',
     paddingHorizontal: 20,
   },
   picker: {
-    marginTop: Platform.OS === 'android' ? 20 : 5,
+    marginTop: Platform.OS === 'android' ? 0 : 5,
     // marginBottom: Platform.OS === 'android' ? 20 : 10,
     // with
     minWidth: Platform.OS === 'android' ? 100 : 50,
@@ -516,7 +551,7 @@ const styles = StyleSheet.create({
     // borderWidth: 5,
   },
   pickerWide: {
-    marginTop: Platform.OS === 'android' ? 20 : 5,
+    marginTop: Platform.OS === 'android' ? 0 : 5,
     // marginBottom: Platform.OS === 'android' ? 20 : 10,
     // with
     minWidth: Platform.OS === 'android' ? 250 : 50,
@@ -563,10 +598,18 @@ const styles = StyleSheet.create({
   },
   sessionNotesInput: {
     minHeight: 200,
-    minWidth: "95%",
+    minWidth: "100%",
+    maxWidth: "100%",
     borderStyle: "solid",
     borderWidth: 5,
     marginBottom: 10,
+    paddingHorizontal: 10,
+    paddingTop: 10,
+    fontSize: 15,
+    textAlign: "left",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    textAlignVertical: 'top',
     // numberOfLines: 5,
   },
   saveResetButtonsBox: {
@@ -575,10 +618,10 @@ const styles = StyleSheet.create({
     // justifyContent: 'center'
     flexDirection: 'row',
     minHeight: 100,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     justifyContent: 'space-evenly',
-    borderStyle: "solid",
-    borderWidth: 5,
+    // borderStyle: "solid",
+    // borderWidth: 5,
     width: "100%", 
   },
   saveButton: {
@@ -614,9 +657,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flex: 1,
     textAlign: "center",
+    justifyContent: 'left',
+    alignItems: 'center',
+    // paddingHorizontal: 20,
+    paddingVertical: Platform.OS === 'android' ? 0 : 5,
+  },
+  sideBySideCenter: {
+    width: "100%", 
+    // maxHeight: 75,
+    flexDirection: 'row',
+    flex: 1,
+    textAlign: "center",
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
     paddingVertical: Platform.OS === 'android' ? 0 : 5,
   },
 });
