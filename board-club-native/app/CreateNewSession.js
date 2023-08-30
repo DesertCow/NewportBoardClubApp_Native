@@ -8,6 +8,10 @@ import { Picker } from '@react-native-picker/picker';
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
 
+//* GraphQL
+import { useMutation } from '@apollo/client';
+import { CREATE_SURF_SESSION } from '../utils/mutations';
+
 function CreateNewSession( { navigation } ) {
 
   //* Time/Location Data
@@ -19,7 +23,7 @@ function CreateNewSession( { navigation } ) {
   const [skyConditions, setSkyConditions] = React.useState();
   const [waveHeight, setWaveHeight] = React.useState();
   const [tideFT, setTideFT] = React.useState();
-  const [tideIN, setTideIN] = React.useState();
+  const [tideDEC, settideDEC] = React.useState();
   const [tideDirection, setTideDirection] = React.useState();
   const [sessionLengthHours, setSessionLengthHours] = React.useState();
   const [sessionLengthMinutes, setSessionLengthMinutes] = React.useState();
@@ -30,12 +34,51 @@ function CreateNewSession( { navigation } ) {
   const [surfboardLengthFT, setSurfboardLengthFT] = React.useState();
   const [surfboardLengthIN, setSurfboardLengthIN] = React.useState();
   const [surfboardVolumeFT, setSurfboardVolumeFT] = React.useState();
-  const [surfboardVolumeIN, setSurfboardVolumeIN] = React.useState();
+  const [surfboardVolumeDEC, setsurfboardVolumeDEC] = React.useState();
   const [finsetup, setFinSetup] = React.useState();
 
   //* Session Notes
   const [sessionNotes, setSessionNotes] = React.useState();
   const [sessionRating, setSessionRating] = React.useState();
+
+  //*GraphQL
+  const [createSurfSession, { surfSessionData }] = useMutation(CREATE_SURF_SESSION);
+
+
+  async function submitNewSession() {
+
+    console.log("Submit New Surf Session!")
+    console.log(dateData)
+    console.log(timeData)
+
+      const { surfSessionData } = await createSurfSession({
+
+      variables: { 
+        // userId: jwtToken.data._id,
+        userId: "64e27081d2fa09f5f6881882",
+        sessionDate: dateData,
+        sessionTime: timeData,
+        sessionLocation: locationData,
+        skyConditions: skyConditions,
+        waveSize: waveHeight,
+        tideLevel: parseFloat(tideFT + "." + tideDEC),
+        tideDirection: tideDirection,
+        sessionLength: sessionLengthHours + ":" + sessionLengthMinutes,
+        surfboardShaper: shaper,
+        surfboardModel: modelData,
+        surfboardLengthFt: parseInt(surfboardLengthFT),
+        surfboardLengthIn: parseInt(surfboardLengthIN),
+        surfboardVolume: parseFloat(surfboardVolumeFT + "." + surfboardVolumeDEC),
+        surfboardFinConfig: finsetup,
+        sessionNotes: sessionNotes,
+        sessionRating: parseInt(sessionRating),
+      },
+    });
+
+    // console.log(surfSessionData)
+    // console.log("%%%%%%%%%%%%%%%%%%%%%%%")
+    navigation.navigate('ListOfSessions')
+  }
 
 
 
@@ -55,7 +98,7 @@ function CreateNewSession( { navigation } ) {
             style={styles.userInput}
             onChangeText={onDateChange}
             value={dateData}
-            defaultValue='MM/DD/YYYY'
+            placeholder='MM/DD/YYYY'
             inputMode="text"
           />
         </View>
@@ -66,7 +109,7 @@ function CreateNewSession( { navigation } ) {
             style={styles.userInput}
             onChangeText={onTimeChange}
             value={timeData}
-            defaultValue='hh:mm aa'
+            placeholder='hh:mm aa'
             inputMode="text"
           />
         </View>
@@ -77,7 +120,7 @@ function CreateNewSession( { navigation } ) {
             style={styles.userInput}
             onChangeText={onLocationChange}
             value={locationData}
-            defaultValue='Location'
+            placeholder='Location'
             inputMode="text"
           />
         </View>
@@ -145,9 +188,9 @@ function CreateNewSession( { navigation } ) {
             <Text style={styles.dropdownBoxTitle}>.</Text>
             <Picker
               style={styles.picker}
-              selectedValue={tideIN}
+              selectedValue={tideDEC}
               onValueChange={(itemValue, itemIndex) =>
-                setTideIN(itemValue)
+                settideDEC(itemValue)
               }>
               <Picker.Item label="0" value="0" />
               <Picker.Item label="1" value="1" />
@@ -320,9 +363,9 @@ function CreateNewSession( { navigation } ) {
             <Text style={styles.dropdownBoxTitle}>.</Text>
             <Picker
               style={styles.picker}
-              selectedValue={surfboardVolumeIN}
+              selectedValue={surfboardVolumeDEC}
               onValueChange={(itemValue, itemIndex) =>
-                setSurfboardVolumeIN(itemValue)
+                setsurfboardVolumeDEC(itemValue)
               }>
               <Picker.Item label="0" value="0"/>
               <Picker.Item label="1" value="1"/>
@@ -391,6 +434,7 @@ function CreateNewSession( { navigation } ) {
           <TouchableOpacity
             style={styles.saveButton}
             // onPress={() => navigation.navigate('ClubEvents')}
+            onPress={() => submitNewSession()}
             >
             <Text style={styles.buttonText}>Save</Text>
           </TouchableOpacity>
