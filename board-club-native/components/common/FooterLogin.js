@@ -1,20 +1,48 @@
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 //* Import Assets
 import { FontAwesome5 } from '@expo/vector-icons';
 const GitHubIcon = require('../../assets/icons/github.png')
 
+//* Linking
+import * as Linking from 'expo-linking';
+
+
+
+
 function FooterLogin() {
 
   const navigation = useNavigation();
 
+  function gitHubLink(){
+    Linking.openURL('https://github.com/DesertCow');
+  }
+
+  function portfolioLink(){
+    Linking.openURL('https://www.claytonskaggs.dev/');
+  }
+
   return(
 
     <View style={styles.footer}>
-      <Image style={styles.gitHubIcon} source={GitHubIcon} />
+
+      <TouchableOpacity
+        onPress={() => gitHubLink()}
+      >
+      <Image style={styles.gitHubIcon} source={GitHubIcon}/>
+      </TouchableOpacity>
+
       <Text style={styles.footerText}>🙊 Monkey See Monkey Do LLC. 🙉</Text>
-      <FontAwesome5 name="id-badge" size={24} color="black" />
+
+      <TouchableOpacity
+        onPress={() => portfolioLink()}
+      >
+        <FontAwesome5 name="id-badge" size={24} color="black" />
+      </TouchableOpacity>
+      
+      
+      
     </View>
 
   )
