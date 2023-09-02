@@ -34,22 +34,6 @@ The goal of this application to make members want to go surf by providing them w
 
 <br>
 
-* ~~Surfboard Database :surfer:~~
-  * ~~Description~~
-  * ~~Specs~~
-  * ~~MFG Link~~
-  * ~~Photos~~
-  * ~~Comments/Feedback~~
-  * ~~Rating~~
-
-<br>
-
-* Rental Infromation 🧾
-  * Equipment
-  * Prices / Hours
-
-<br>
-
 * Events Page :confetti_ball:
   * Upcoming Events
   * Previous Events
@@ -57,14 +41,7 @@ The goal of this application to make members want to go surf by providing them w
 
 <br>
 
-* About :question:
-  * General Club Info
-  * ~~Shaper Info/Links/Deals~~
-  * ~~Club Press~~
-
-<br>
-
-* Surf Diary :open_book:
+* Surf Log :open_book:
   * Log Each Surf Session
   * Review previous surf Sessions
   * Track surf progression
@@ -80,13 +57,22 @@ The goal of this application to make members want to go surf by providing them w
 
 <br>
 
-* Surf Resources :open_book:
-  * ~~Beginner Videos~~
-  * ~~Equipment Tips~~
-  * Surf Hacks
-  * Local Surf Spots Beta
-  * Newport Surf Map
+* Rental Infromation 🧾
+  * Equipment
+  * Prices / Hours
 
+<br>
+
+* About :question:
+  * General Club Info
+
+
+<br>
+
+
+* Surf Resources :open_book:
+  * Surf Hacks
+  * Newport Surf Map / Surf Spot Beta
 
 <br>
 
@@ -95,12 +81,6 @@ The goal of this application to make members want to go surf by providing them w
   * New Surfboards
   * Upcoming Events
   * Swell / Conditions
-
-<br>
-
-* Features Pushed to React Native Version :iphone:
-  * Push Notification
-  * Member Forum
  
 <br>
 <br>
@@ -202,15 +182,14 @@ The goal of this application to make members want to go surf by providing them w
 
 * <h3> Hardware/Deploy </h3>
 
-  * Railway (Database)
-    * MongoDB
-  * Railway (Host)
-    * Client: 
+  * Host: Railway
     * API: https://boardclubapp-production-api.up.railway.app/
-  * GitHub (Verison Control)
-    * 
-  * AWS (S3)
-    * US West 1
+  * Database: Self Host via Docker
+    * MongoDB
+  * Version Control: GitHub
+    * https://github.com/DesertCow/NewportBoardClubApp_Native
+  * Cloud Storeage: AWS
+    * S3 - US West 1
 
 <br>
 <br>
@@ -218,7 +197,7 @@ The goal of this application to make members want to go surf by providing them w
 ## [Demo](#table-of-contents)
 
  <p align="center">
-  <img src="./Dev_Docs/Technical_Difficulties.png" width="774" height="486" alt="Demo 1"/img>
+  <img src="https://claytonskaggs-s3-portfolio.s3.us-west-1.amazonaws.com/NBC_React_Native_Demo1.gif" height="650" alt="Demo 1"/img>
 </p>
 
 <br>
