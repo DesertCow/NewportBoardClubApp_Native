@@ -47,7 +47,8 @@ function NBC_Logo() {
 
 // Initialize Apollo Client
 const client = new ApolloClient({
-  uri: 'http://192.168.25.22:4001',
+  // uri: 'http://192.168.25.22:4001',
+  uri: 'https://boardclubapp-api.up.railway.app/',
   cache: new InMemoryCache()
 });
 
