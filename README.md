@@ -3,7 +3,7 @@
  <p align="center">
   <img src="./Dev_Docs/BOARD_CLUB_LOGO_1.jpg" width="350" height="250" alt="Demo 1")
 </p>
-<h4>React Native application designed to offer the Newport Board Club app on both the Apple and Android platforms via their respective stores.</h4>
+<h4>React Native application designed to offer the Newport Board Club app on both the Apple and Android platforms via their respective stores via a single code base utilizing Expo.</h4>
 </div>
 
 <br>
@@ -34,22 +34,6 @@ The goal of this application to make members want to go surf by providing them w
 
 <br>
 
-* ~~Surfboard Database :surfer:~~
-  * ~~Description~~
-  * ~~Specs~~
-  * ~~MFG Link~~
-  * ~~Photos~~
-  * ~~Comments/Feedback~~
-  * ~~Rating~~
-
-<br>
-
-* Rental Infromation 🧾
-  * Equipment
-  * Prices / Hours
-
-<br>
-
 * Events Page :confetti_ball:
   * Upcoming Events
   * Previous Events
@@ -57,14 +41,7 @@ The goal of this application to make members want to go surf by providing them w
 
 <br>
 
-* About :question:
-  * General Club Info
-  * ~~Shaper Info/Links/Deals~~
-  * ~~Club Press~~
-
-<br>
-
-* Surf Diary :open_book:
+* Surf Log :open_book:
   * Log Each Surf Session
   * Review previous surf Sessions
   * Track surf progression
@@ -80,13 +57,22 @@ The goal of this application to make members want to go surf by providing them w
 
 <br>
 
-* Surf Resources :open_book:
-  * ~~Beginner Videos~~
-  * ~~Equipment Tips~~
-  * Surf Hacks
-  * Local Surf Spots Beta
-  * Newport Surf Map
+* Rental Infromation 🧾
+  * Equipment
+  * Prices / Hours
 
+<br>
+
+* About :question:
+  * General Club Info
+
+
+<br>
+
+
+* Surf Resources :open_book:
+  * Surf Hacks
+  * Newport Surf Map / Surf Spot Beta
 
 <br>
 
@@ -95,12 +81,6 @@ The goal of this application to make members want to go surf by providing them w
   * New Surfboards
   * Upcoming Events
   * Swell / Conditions
-
-<br>
-
-* Features Pushed to React Native Version :iphone:
-  * Push Notification
-  * Member Forum
  
 <br>
 <br>
@@ -179,38 +159,63 @@ The goal of this application to make members want to go surf by providing them w
 
 <br>
 
-  * **Android Client** ()
+  * **Android Client**
+    * Packages
+      * @apollo/client (3.8.1)
+      * @expo/vector-icons (13.0.0)
+      * @react-native-community/checkbox (0.5.16)
+      * @react-native-picker/picker (2.5.0)
+      * @react-navigation/native (6.1.7)
+      * @react-navigation/native-stack (6.9.13)
+      * expo (49.0.6)
+      * expo-constants (14.4.2)
+      * expo-document-picker (11.5.4)
+      * expo-file-system (15.4.3)
+      * expo-linking (5.0.2)
+      * expo-router (2.0.0)
+      * expo-secure-store (12.3.1)
+      * expo-splash-screen (0.20.5)
+      * expo-status-bar (1.6.0)
+      * graphql (15.8.0)
+      * jwt-decode (3.1.2)
+      * react (18.2.0)
+      * react-dom(18.2.0)
+      * react-native (0.72.3)
+      * react-native-blob-util (0.19.1)
+      * react-native-check-box (2.1.7)
+      * react-native-dotenv (3.4.9)
+      * react-native-gesture-handler (2.12.1)
+      * react-native-image-pan-zoom (2.1.12)
+      * react-native-modal (13.0.1)
+      * react-native-reanimated (3.3.0)
+      * react-native-safe-area-context (4.6.3)
+      * react-native-screens (3.22.0)
+      * react-native-switch-selector (2.3.0)
+      * react-native-web (0.19.6)
+
+<br>
+
+  <!-- * **iOS Client** ()
     * Packages
       * 
       * 
       * 
       * 
-
-
-<br>
-
-  * **iOS Client** ()
-    * Packages
-      * 
-      * 
-      * 
-      * 
       * 
 
 
-<br>
+<br> -->
 
-* <h3> Hardware/Deploy </h3>
+* <h3> Hardware Stack/Deploy </h3>
 
-  * Railway (Database)
-    * MongoDB
-  * Railway (Host)
-    * Client: 
+  * Host: Railway
     * API: https://boardclubapp-production-api.up.railway.app/
-  * GitHub (Verison Control)
-    * 
-  * AWS (S3)
-    * US West 1
+  * Database: Self Host via Docker
+    * MongoDB
+  * Version Control: GitHub
+    * https://github.com/DesertCow/NewportBoardClubApp_Native
+  * Cloud Storeage: AWS
+    * S3 - US West 1
 
 <br>
 <br>
@@ -218,7 +223,7 @@ The goal of this application to make members want to go surf by providing them w
 ## [Demo](#table-of-contents)
 
  <p align="center">
-  <img src="./Dev_Docs/Technical_Difficulties.png" width="774" height="486" alt="Demo 1"/img>
+  <img src="https://claytonskaggs-s3-portfolio.s3.us-west-1.amazonaws.com/NBC_React_Native_Demo1.gif" height="650" alt="Demo 1"/img>
 </p>
 
 <br>
