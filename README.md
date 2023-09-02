@@ -3,7 +3,7 @@
  <p align="center">
   <img src="./Dev_Docs/BOARD_CLUB_LOGO_1.jpg" width="350" height="250" alt="Demo 1")
 </p>
-<h4>React Native application designed to offer the Newport Board Club app on both the Apple and Android platforms via their respective stores.</h4>
+<h4>React Native application designed to offer the Newport Board Club app on both the Apple and Android platforms via their respective stores via a single code base utilizing Expo.</h4>
 </div>
 
 <br>
