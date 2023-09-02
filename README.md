@@ -223,7 +223,7 @@ The goal of this application to make members want to go surf by providing them w
 ## [Demo](#table-of-contents)
 
  <p align="center">
-  <img src="https://claytonskaggs-s3-portfolio.s3.us-west-1.amazonaws.com/NBC_React_Native_Demo1.gif" height="650" alt="Demo 1"/img>
+  <img src="./Dev_Docs/NBC_React_Native_Demo3.gif" height="650" alt="Demo 1"/img>
 </p>
 
 <br>
